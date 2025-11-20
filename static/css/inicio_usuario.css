@@ -1,0 +1,222 @@
+/* Reset y base */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #ebd7af;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 60px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #8C5E2A;
+}
+
+.logo img {
+  height: 60px;
+  margin-right: 15px;
+  margin-top: -10px;
+}
+
+.links a {
+  margin-left: 1rem;
+  text-decoration: none;
+  color: #8C5E2A;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: #4CAF50;
+}
+
+/* Sección título */
+.titulo-seccion {
+  font-family: 'Playfair Display', serif;
+  color: #8C5E2A;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.8rem;
+}
+
+/* Estadísticas */
+.estadisticas-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 2rem;
+}
+
+.estadistica-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 220px;
+  transition: transform 0.3s ease;
+}
+
+.estadistica-card:hover {
+  transform: scale(1.05);
+}
+
+.icono-estadistica {
+  font-size: 2.5rem;
+  color: #4CAF50;
+  margin-bottom: 0.5rem;
+}
+
+/* Carrusel */
+.carrusel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.carrusel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.carrusel-item {
+  flex: 0 0 auto;
+  width: 280px;
+  scroll-snap-align: center;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.carrusel-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.carrusel-item h4 {
+  color: #4CAF50;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* Info */
+.info-section {
+  max-width: 800px;
+  margin: 2rem auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  color: #444;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+.footer {
+  background-color: #8C5E2A;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer p {
+  margin: 0.2rem 0;
+  font-size: 0.85rem;
+}
+
+.siguenos-redes {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.instagram-icon {
+  height: 28px;
+}
+
+/* Titular estilo como Estadísticas */
+.titulo-seccion {
+  font-family: 'Playfair Display', serif;
+  color: #8C5E2A;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.8rem;
+}
+
+/* Info section adicional */
+.info-section p {
+  max-width: 800px;
+  margin: 1rem auto;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.6;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: justify;
+}
+
+/* Sección de exploración */
+.explora-section {
+  text-align: center;
+  margin: 3rem auto;
+  padding: 1rem 2rem;
+}
+
+.explora-text {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+.img-explora {
+  max-width: 90%;
+  height: 200px;
+}
+
+.leer-mas-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.boton-leer-mas {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+.boton-leer-mas:hover {
+  background-color: #388e3c;
+}

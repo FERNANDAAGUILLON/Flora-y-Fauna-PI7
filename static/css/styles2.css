@@ -1,0 +1,68 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #F8D9A0; /* Amarillo cálido del fondo */
+  color: #4A4A4A; /* Gris oscuro para texto */
+}
+
+.main-header {
+  background-color: #F8D9A0;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  color: #4A4A4A;
+}
+
+.logo span {
+  font-weight: 700;
+  color: #A67C52; /* Marrón claro inspirado en los árboles */
+}
+
+.user-nav .btn {
+  background-color: #FFF3D0;
+  color: #4A4A4A;
+  border: 1px solid #A67C52;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  background-image: url('{{ url_for("static", filename="img/inicio.jpg") }}');
+  background-size: cover;
+  background-position: right center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.overlay {
+  width: 50%;
+  background-color: rgba(255, 243, 208, 0.8); /* Transparencia sobre el fondo */
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.overlay h2 {
+  font-size: 36px;
+  color: #4A4A4A;
+}
+
+.overlay p {
+  font-size: 18px;
+  color: #4A4A4A;
+}
+
+.main-footer {
+  background-color: #F8D9A0;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #4A4A4A;
+}

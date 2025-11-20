@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comunidad Ambiental</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/comentarios.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <!-- Encabezado fijo -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+      <span>Fauna y Flora Local Qro</span>
+    </div>
+    <div class="links">
+      <a href="/mapa-usuario">Mapa</a>
+      <a href="/inicio_usuario">Volver</a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="contenido-pagina">
+    <!-- Título y descripción sin tarjeta -->
+    <section class="intro">
+      <h1>Comunidad Ambiental</h1>
+      <p>Comparte tus experiencias y conoce las opiniones de otros amantes de la naturaleza en <strong>Querétaro</strong>.</p>
+    </section>
+
+    <!-- Comentarios -->
+    <section class="seccion comentarios">
+      <h2><i class="fas fa-comments"></i> Comentarios</h2>
+      {% for c in comentarios %}
+        <div class="comentario">
+          <div class="comentario-header">
+            <strong>{{ c.nombre }}</strong>
+            <span class="zona"><i class="fas fa-map-marker-alt"></i> {{ c.nombre_region }}</span>
+            <em><i class="fas fa-calendar-alt"></i> {{ c.Fecha_publicacion }}</em>
+          </div>
+          <p>{{ c.Contenido }}</p>
+
+          {% if c.ID_usuario == id_usuario %}
+            <form action="/comentario/eliminar/{{ c.ID }}" method="POST" class="boton-form">
+              <button type="submit" class="boton-secundario">
+                <i class="fas fa-trash-alt"></i> Eliminar
+              </button>
+            </form>
+
+            <form action="/comentario/editar/{{ c.ID }}" method="POST" class="boton-form">
+              <input type="text" name="contenido" value="{{ c.Contenido }}" required>
+              <button type="submit" class="boton-secundario">
+                <i class="fas fa-edit"></i> Editar
+              </button>
+            </form>
+          {% endif %}
+
+          <button type="button" class="like-button boton-like" data-id="{{ c.ID }}" id="like-btn-{{ c.ID }}">
+            <i class="fas fa-heart"></i> Me gusta (<span id="likes-{{ c.ID }}">{{ c.likes }}</span>)
+          </button>
+        </div>
+      {% else %}
+        <p>No hay comentarios aún. ¡Sé el primero en comentar!</p>
+      {% endfor %}
+    </section>
+
+    <!-- Formulario -->
+    <section class="seccion formulario">
+      <h2><i class="fas fa-pen"></i> Agregar un comentario</h2>
+      <form method="POST" class="formulario-comentario">
+        <textarea name="contenido" rows="4" required placeholder="Escribe tu comentario..."></textarea>
+        <label for="id_zona"><i class="fas fa-map"></i> Selecciona una zona:</label>
+        <select name="id_zona" required>
+          {% for zona in zonas %}
+            <option value="{{ zona.ID }}">{{ zona.nombre_region }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="boton-principal">
+          <i class="fas fa-paper-plane"></i> Publicar
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
+      <div class="siguenos-redes">
+        <p class="siguenos"><i class="fas fa-share-alt"></i> Síguenos en nuestras redes sociales:</p>
+        <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
+          <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script para manejar los "me gusta" -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const idComentario = button.dataset.id;
+
+          fetch(`/comentario/like/${idComentario}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              const span = document.getElementById('likes-' + idComentario);
+              span.textContent = parseInt(span.textContent) + 1;
+              button.disabled = true;
+              button.innerHTML = `<i class="fas fa-heart"></i> Te gustó (${span.textContent})`;
+            }
+          });
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

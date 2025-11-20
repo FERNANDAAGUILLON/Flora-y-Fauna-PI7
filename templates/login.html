@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Iniciar Sesión</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles3.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+</head>
+<body class="fondo">
+
+  <!-- Encabezado fijo -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+      <span>Fauna y Flora Local Qro</span>
+    </div>
+    <div class="links">
+      <a href="{{ url_for('auth.login') }}">Iniciar Sesión</a>
+      <a href="{{ url_for('auth.registro') }}">Registrarse</a>
+      <a href="/">Inicio</a>
+    </div>
+  </nav>
+
+  <!-- Fondo decorativo -->
+  <div class="overlay"></div>
+
+  <!-- Formulario de inicio de sesión -->
+  <div class="form-container">
+    <h2>Iniciar sesión</h2>
+
+    {% with mensajes = get_flashed_messages() %}
+      {% if mensajes %}
+        <div class="mensaje-flash">
+          {% for mensaje in mensajes %}
+            <p>{{ mensaje }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+      <input type="email" name="correo" placeholder="Correo" pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" title="Introduce un correo electrónico válido con '@' y '.'" maxlength="50" required />
+      <input type="password" name="contraseña" placeholder="Contraseña" maxlength="25" required />
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
+      <div class="siguenos-redes">
+        <p class="siguenos">Síguenos en nuestras redes sociales: </p>
+        <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
+          <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

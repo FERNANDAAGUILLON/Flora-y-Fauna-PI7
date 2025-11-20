@@ -1,0 +1,113 @@
+/* Fuente y fondo general */
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #ebd7af;
+  background-image: url("/static/img/patron1.png");
+  background-repeat: repeat;
+  background-size: 100px 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* NAVBAR reducido */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 60px; /* Altura reducida */
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  color: #8C5E2A;
+  line-height: 1;
+}
+
+.logo img {
+  height: 60px; /* Logo mantiene su tamaño original */
+  margin-right: 15px;
+  margin-top: -10px; /* Ajuste visual para centrar con menos altura de navbar */
+}
+
+.links a {
+  margin-left: 1.2rem;
+  text-decoration: none;
+  color: #8C5E2A;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: #db9646;
+}
+
+/* Título */
+.titulo {
+  font-size: 3rem;
+  color: #1c3728;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  margin-top: 0rem;
+}
+
+/* Contenedor del mapa */
+.container {
+  width: 90%;
+  padding: 2rem;
+  margin-left: 50px;
+}
+
+/* Estilos para el mapa SVG */
+.container path {
+  fill: #A4B465;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.container path:hover {
+  fill: #4b7b38;
+}
+
+/* Pie de página */
+.footer {
+  background-color: #8C5E2A;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  margin-top: 2rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer p {
+  margin: 0.2rem 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.siguenos-redes {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 0.5rem;
+}
+
+.instagram-icon {
+  height: 30px;
+}

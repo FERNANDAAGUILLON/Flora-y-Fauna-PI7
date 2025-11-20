@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administrar Comentarios</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_comentarios.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+      <span>Panel de Administración</span>
+    </div>
+    <div class="links">
+      <a href="{{ url_for('admin.panel_admin') }}">Panel</a>
+      <a href="/logout">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <main class="contenido-pagina">
+    <section class="seccion comentarios">
+      <h2><i class="fas fa-tools"></i> Gestión de Comentarios</h2>
+
+      <form method="GET" action="/admin/comentarios" class="filtro-zona">
+        <label for="zona">Filtrar por zona:</label>
+        <select name="zona" id="zona" onchange="this.form.submit()">
+          <option value="">Todas las zonas</option>
+          {% for z in zonas %}
+            <option value="{{ z.ID }}" {% if z.ID == zona_seleccionada %}selected{% endif %}>{{ z.nombre_region }}</option>
+          {% endfor %}
+        </select>
+      </form>
+
+      {% for c in comentarios %}
+        <div class="comentario">
+          <div class="comentario-header">
+            <strong>{{ c.nombre }}</strong>
+            <span class="zona"><i class="fas fa-map-marker-alt"></i> {{ c.nombre_region }}</span>
+            <em><i class="fas fa-calendar-alt"></i> {{ c.Fecha_publicacion }}</em>
+          </div>
+          <p>{{ c.Contenido }}</p>
+          <form action="/admin/comentario/eliminar/{{ c.ID }}" method="POST" class="boton-form" onsubmit="return confirm('¿Estás segura de que deseas eliminar este comentario?')">
+            <button type="submit" class="boton-secundario">
+              <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+          </form>
+        </div>
+      {% else %}
+        <p>No hay comentarios registrados.</p>
+      {% endfor %}
+    </section>
+  </main>
+        <!-- Pie de página -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Panel Administradora. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

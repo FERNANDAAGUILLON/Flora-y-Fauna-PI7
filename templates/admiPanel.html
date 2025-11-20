@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administradora</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/panel_admin.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Encabezado fijo -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+      <span>Panel Administradora</span>
+    </div>
+    <div class="links">
+      <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="panel-contenido">
+    <section class="acciones">
+      <h1>Bienvenida, administradora</h1>
+      <p>Este es tu panel de administración.</p>
+
+      <div class="botones-horizontales">
+        <a href="{{ url_for('admin.ver_usuarios') }}" class="boton">Gestionar Usuarios</a>
+        <a href="{{ url_for('zonas_admi.mostrar_especies_admin') }}" class="boton">Gestionar Especies</a>
+        <a href="{{ url_for('admin_comentarios_bp.ver_comentarios_admin') }}" class="boton">Gestionar Comentarios</a>
+        <a href="/admin/consejos" class="boton">Gestionar consejos</a>
+</div>
+
+    </section>
+
+    <div class="imagen-centro">
+      <img src="{{ url_for('static', filename='img/administrador.png') }}" alt="Administradora">
+    </div>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Panel Administradora. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

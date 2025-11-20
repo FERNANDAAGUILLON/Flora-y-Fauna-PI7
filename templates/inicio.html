@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flora y Fauna de Querétaro</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style4.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Encabezado fijo -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+      <span>Fauna y Flora Local Qro</span>
+    </div>
+    <div class="links">
+      <a href="{{ url_for('auth.login') }}">Iniciar Sesión</a>
+      <a href="{{ url_for('auth.registro') }}">Registrarse</a>
+    </div>
+  </nav>
+
+  <!-- Fondo con imagen y contenido -->
+  <div class="fondo">
+    <section class="contenido">
+      <h1><span>Descubre</span> la naturaleza de Querétaro</h1>
+      <p>
+        Explora la diversidad de flora y fauna que habita en nuestras sierras, selvas bajas y zonas semidesérticas.
+      </p>
+      <a href="{{ url_for('mapa') }}" class="boton-explorar">Explora ahora →</a>
+    </section>
+    
+    <div class="imagen-derecha">
+      <img src="{{ url_for('static', filename='img/inicio.png') }}" alt="Paisaje Rural">
+    </div>
+  </div>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
+    
+    <div class="siguenos-redes">
+      <p class="siguenos">Síguenos en nuestras redes sociales: </p>
+      <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
+        <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
+      </a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

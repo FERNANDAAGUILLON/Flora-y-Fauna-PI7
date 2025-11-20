@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Encabezado fijo -->
+<nav class="navbar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+        <span>Fauna y Flora Local Qro</span>
+    </div>
+    <div class="links">
+        <a href="/inicio_usuario">Volver</a>
+        <a href="/perfil">Mi Perfil</a>
+      <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+    </div>
+</nav>
+
+<!-- Contenido del perfil -->
+<div class="profile-container">
+
+    <div class="profile-header">
+        <img src="https://via.placeholder.com/120" alt="Foto de perfil">
+        <div class="profile-info">
+            <h2 id="nombreUsuario">{{ usuario.nombre }} {{ usuario.apellidoPaterno }} {{ usuario.apellidoMaternousuarios }}</h2>
+            <p id="correoUsuario">{{ usuario.correo }}</p>
+        </div>
+    </div>
+
+    <div class="profile-buttons">
+        <button class="edit-button" onclick="toggleForm(true)">Editar Perfil</button>
+    </div>
+
+    <form id="formPerfil" class="profile-form" method="POST" action="{{ url_for('perfil.actualizar_perfil') }}">
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre" value="{{ usuario.nombre }}" required
+               minlength="2" maxlength="15" title="Debe tener entre 2 y 15 caracteres">
+
+        <input type="text" name="apellido_paterno" id="apellidoPaterno" placeholder="Apellido Paterno" value="{{ usuario.apellidoPaterno }}" required
+               minlength="2" maxlength="15" title="Debe tener entre 2 y 15 caracteres">
+
+        <input type="text" name="apellido_materno" id="apellidoMaterno" placeholder="Apellido Materno" value="{{ usuario.apellidoMaternousuarios }}" required
+               minlength="2" maxlength="15" title="Debe tener entre 2 y 15 caracteres">
+
+        <input type="email" name="correo" id="correo" placeholder="Correo Electrónico" value="{{ usuario.correo }}" required
+               title="Ingresa un correo válido">
+
+        <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña"
+               minlength="8" maxlength="15"
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+               title="Debe tener entre 8 y 15 caracteres, incluyendo una mayúscula, una minúscula y un número">
+
+        <div class="profile-buttons">
+            <button type="submit" class="edit-button">Guardar</button>
+            <button type="button" class="cancel-button" onclick="toggleForm(false)">Cancelar</button>
+        </div>
+    </form>
+
+</div>
+
+<!-- Pie de página -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
+        <div class="siguenos-redes">
+            <p class="siguenos">Síguenos en nuestras redes sociales: </p>
+            <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
+                <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleForm(show) {
+        const form = document.getElementById("formPerfil");
+        form.classList.toggle("active", show);
+    }
+</script>
+
+</body>
+</html>

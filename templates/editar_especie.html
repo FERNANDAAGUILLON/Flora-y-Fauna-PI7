@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Especie</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/editar_especie.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Encabezado -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+      <span>Panel Administradora</span>
+    </div>
+    <div class="links">
+      <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="contenido">
+    <h1>Editar Especie</h1>
+
+    <section class="formulario">
+      <form method="POST" action="{{ url_for('zonas_admi.actualizar_especie', id=especie.ID) }}">
+        <label for="nombre_comun">Nombre común:</label>
+        <input type="text" id="nombre_comun" name="nombre_comun" value="{{ especie.Nombre_comun }}" required
+               minlength="2" maxlength="30"
+               pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,30}$"
+               title="Solo letras y espacios. Mínimo 2, máximo 30 caracteres.">
+
+        <label for="nombre_cientifico">Nombre científico:</label>
+        <input type="text" id="nombre_cientifico" name="nombre_cientifico" value="{{ especie.nombre_cientifico }}" required
+               minlength="2" maxlength="30"
+               pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,30}$"
+               title="Solo letras y espacios. Mínimo 2, máximo 30 caracteres.">
+
+        <label for="id_familia">Familia:</label>
+        <select name="id_familia" id="id_familia" required>
+          {% for familia in familias %}
+            <option value="{{ familia.ID }}" {% if familia.ID == especie.id_familia %}selected{% endif %}>
+              {{ familia.nombre_familia }}
+            </option>
+          {% endfor %}
+        </select>
+
+        <label for="id_estado_conservacion">Estado de Conservación:</label>
+        <select name="id_estado_conservacion" id="id_estado_conservacion" required>
+          {% for estado in estados_conservacion %}
+            <option value="{{ estado.ID }}" {% if estado.ID == especie.id_estado_conservacion %}selected{% endif %}>
+              {{ estado.categoria }}
+            </option>
+          {% endfor %}
+        </select>
+
+        <label for="zona">Zona:</label>
+        <select name="zona" id="zona" required>
+          {% for zona in zonas %}
+            <option value="{{ zona.ID }}" {% if zona.ID == especie.id_zonas %}selected{% endif %}>
+              {{ zona.nombre_region }}
+            </option>
+          {% endfor %}
+        </select>
+
+        <div class="botones">
+          <button type="submit" class="boton">Actualizar especie</button>
+          <a href="{{ url_for('zonas_admi.mostrar_especies_admin') }}" class="boton cancelar">Cancelar</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <p>&copy; 2025 Administración de Especies</p>
+  </footer>
+
+</body>
+</html>

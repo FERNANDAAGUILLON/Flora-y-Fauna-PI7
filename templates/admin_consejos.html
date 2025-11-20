@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Consejos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_consejos.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+        <span>Fauna y Flora Local Qro</span>
+    </div>
+    <div class="links">
+        <a href="{{ url_for('admin.panel_admin') }}">Panel</a>
+        <a href="/logout">Cerrar sesión</a>
+    </div>
+</nav>
+
+<main class="contenido">
+    <h1>Administrar Consejos</h1>
+
+    <!-- Formulario para crear consejo -->
+    <form method="POST" action="/admin/consejo/crear" class="formulario formulario-crear">
+        <input type="text" name="titulo" placeholder="Título" required minlength="10" maxlength="50" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" />
+        <textarea name="consejo" placeholder="Consejo" required minlength="10" maxlength="300"></textarea>
+        <input type="date" name="fecha" required />
+        <input type="time" name="hora" required />
+        <select name="zona" required>
+            <option value="">Selecciona una zona</option>
+            {% for z in zonas %}
+                <option value="{{ z.ID }}">{{ z.nombre_region }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit"><i class="fas fa-plus-circle"></i> Crear Consejo</button>
+    </form>
+
+    <!-- Consejos en fila horizontal -->
+    <div class="lista-consejos">
+        {% for c in consejos %}
+        <div class="formulario formulario-catalogo">
+            <!-- Formulario para editar -->
+            <form method="POST" action="/admin/consejo/editar/{{ c.id }}">
+                <input type="text" name="titulo" value="{{ c.titulo }}" required minlength="10" maxlength="50" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" />
+                <textarea name="consejo" required minlength="10" maxlength="300">{{ c.consejo }}</textarea>
+                <input type="date" name="fecha" value="{{ c.fecha }}" required />
+                <input type="time" name="hora" value="{{ c.hora }}" required />
+                <select name="zona" required>
+                    {% for z in zonas %}
+                        <option value="{{ z.ID }}" {% if z.ID == c.zona_id %}selected{% endif %}>{{ z.nombre_region }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit"><i class="fas fa-save"></i> Actualizar</button>
+            </form>
+
+            <!-- Formulario para eliminar -->
+            <form method="POST" action="/admin/consejo/eliminar/{{ c.id }}" onsubmit="return confirm('¿Estás segura de que deseas eliminar este consejo?')">
+                <button type="submit" class="eliminar"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
+        <div class="siguenos-redes">
+            <p class="siguenos">Síguenos en nuestras redes sociales: </p>
+            <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
+                <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
+            </a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Administración de Especies</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_especies.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Encabezado -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+      <span>Panel Administradora</span>
+    </div>
+    <div class="links">
+      <a href="{{ url_for('admin.panel_admin') }}">Panel</a>
+      <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="contenido">
+    <h1>Administración de Especies</h1>
+
+    <!-- Filtro por zona -->
+    <form method="POST" action="{{ url_for('zonas_admi.mostrar_especies_admin') }}" class="formulario">
+      <label for="zona">Filtrar por zona:</label>
+      <select name="zona" id="zona" onchange="this.form.submit()" required>
+        {% for zona in zonas %}
+          <option value="{{ zona.ID }}" {% if zona.ID == zona_actual|int %}selected{% endif %}>
+            {{ zona.nombre_region }}
+          </option>
+        {% endfor %}
+      </select>
+    </form>
+
+    <!-- Formulario de nueva especie -->
+    <section class="formulario">
+      <h2>Agregar nueva especie</h2>
+      <form method="POST" action="{{ url_for('zonas_admi.agregar_especie') }}">
+        <label for="nombre_comun">Nombre común:</label>
+        <input type="text" id="nombre_comun" name="nombre_comun" required
+               minlength="2" maxlength="30"
+               pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,30}$"
+               title="Solo letras y espacios. Mínimo 2, máximo 30 caracteres.">
+
+        <label for="nombre_cientifico">Nombre científico:</label>
+        <input type="text" id="nombre_cientifico" name="nombre_cientifico" required
+               minlength="2" maxlength="30"
+               pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,30}$"
+               title="Solo letras y espacios. Mínimo 2, máximo 30 caracteres.">
+
+        <label for="id_familia">Familia:</label>
+        <select name="id_familia" id="id_familia" required>
+          {% for fam in familias %}
+            <option value="{{ fam.ID }}">{{ fam.nombre_familia }}</option>
+          {% endfor %}
+        </select>
+
+        <label for="id_estado_conservacion">Estado de Conservación:</label>
+        <select name="id_estado_conservacion" id="id_estado_conservacion" required>
+          {% for estado in estados_conservacion %}
+            <option value="{{ estado.ID }}">{{ estado.categoria }}</option>
+          {% endfor %}
+        </select>
+
+        <label for="zona_nueva">Zona:</label>
+        <select name="zona" id="zona_nueva" required>
+          {% for zona in zonas %}
+            <option value="{{ zona.ID }}" {% if zona.ID == zona_actual|int %}selected{% endif %}>
+              {{ zona.nombre_region }}
+            </option>
+          {% endfor %}
+        </select>
+
+        <button type="submit" class="boton">Agregar especie</button>
+      </form>
+    </section>
+
+    <!-- Tabla de especies -->
+    <section class="tabla-especies">
+      <h2>Especies en zona seleccionada</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre común</th>
+            <th>Nombre científico</th>
+            <th>Familia</th>
+            <th>Estado de conservación</th>
+            <th>Zona</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for especie in especies %}
+          <tr>
+            <td>{{ especie.Nombre_comun }}</td>
+            <td>{{ especie.nombre_cientifico }}</td>
+            <td>{{ especie.nombre_familia }}</td>
+            <td>{{ especie.categoria }}</td>
+            <td>{{ especie.nombre_region }}</td>
+            <td>
+              <a href="{{ url_for('zonas_admi.editar_especie', id=especie.ID) }}" class="accion">Editar</a>
+              <a href="{{ url_for('zonas_admi.eliminar_especie', id=especie.ID) }}" class="accion eliminar"
+                 onclick="return confirm('¿Estás seguro de eliminar esta especie?')">Eliminar</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <p>&copy; 2025 Administración de Especies</p>
+  </footer>
+
+</body>
+</html>

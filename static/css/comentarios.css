@@ -1,0 +1,277 @@
+/* Fuente y base */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #ebd7af;
+  color: #333;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 60px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  color: #8C5E2A;
+}
+
+.logo img {
+  height: 60px;
+  margin-right: 15px;
+  margin-top: -10px;
+}
+
+.links a {
+  margin-left: 1.2rem;
+  text-decoration: none;
+  color: #8C5E2A;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: #4CAF50;
+}
+
+/* CONTENIDO PRINCIPAL */
+main {
+  padding: 2rem;
+}
+
+/* INTRO */
+.intro {
+  padding: 1rem 0;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+}
+
+.intro h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #8C5E2A;
+  margin-bottom: 0.5rem;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  color: #444;
+  text-align: center;
+}
+
+/* SECCIONES COMPACTAS */
+.seccion.comentarios,
+.seccion.formulario {
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.seccion h2 {
+  font-family: 'Playfair Display', serif;
+  color: #8C5E2A;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* COMENTARIOS */
+.comentario {
+  background-color: #dcedc8;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.comentario-header {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.comentario strong {
+  font-size: 1rem;
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+/* ZONA */
+.zona {
+  display: inline-flex;
+  align-items: center;
+  background-color: #c8e6c9;
+  color: #256029;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.zona i {
+  margin-right: 0.3rem;
+  color: #256029;
+}
+
+/* FECHA */
+.comentario em {
+  font-style: normal;
+  color: #388e3c;
+  background-color: #e8f5e9;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.comentario em i {
+  margin-right: 0.3rem;
+  color: #388e3c;
+}
+
+/* BOTONES */
+.boton-form {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.boton-secundario {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.boton-secundario:hover {
+  background-color: #388e3c;
+}
+
+.boton-like {
+  background-color: transparent;
+  border: none;
+  color: #4CAF50;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.boton-like:disabled {
+  color: #aaa;
+}
+
+/* FORMULARIO */
+.formulario-comentario textarea,
+.formulario-comentario select {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #4CAF50;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+}
+
+/* BOTÓN PRINCIPAL */
+.boton-principal {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.boton-principal:hover {
+  background-color: #a06a36;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #8C5E2A;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer p {
+  margin: 0.2rem 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.siguenos-redes {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.siguenos-redes .siguenos i {
+  margin-right: 0.4rem;
+}
+
+.instagram-icon {
+  height: 30px;
+}
+
+/* COMENTARIOS: tarjeta amplia */
+.seccion.comentarios {
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* FORMULARIO: tarjeta más compacta */
+.seccion.formulario {
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+  padding: 1.2rem;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}

@@ -1,0 +1,147 @@
+/* Estructura base */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #ebd7af;
+  display: flex;
+  flex-direction: column;
+}
+
+/* NAVBAR reducido */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 60px; /* Altura reducida */
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  color: #8C5E2A;
+  line-height: 1;
+}
+
+.logo img {
+  height: 60px; /* Logo mantiene su tamaño original */
+  margin-right: 15px;
+  margin-top: -10px; /* Ajuste visual para centrar con menos altura de navbar */
+}
+
+.links a {
+  margin-left: 1.2rem;
+  text-decoration: none;
+  color: #8C5E2A;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: #db9646;
+}
+
+/* FONDO */
+.fondo {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: calc(100vh - 100px); /* 100vh - navbar(50px) - footer(50px) */
+}
+
+/* CONTENIDO a la izquierda */
+.contenido {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  max-width: 50%;
+}
+
+.contenido h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.contenido h1 span {
+  color: #8C5E2A;
+}
+
+.contenido p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #444;
+}
+
+.boton-explorar {
+  display: inline-block; 
+  background-color: #8C5E2A;
+  color: #fff;
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  width: auto;  
+  max-width: max-content; 
+  box-sizing: border-box;
+}
+
+
+
+/* IMAGEN a la derecha */
+.imagen-derecha {
+  flex: 1;
+  overflow: hidden;
+}
+
+.imagen-derecha img {
+  width: 85%;
+  height: 99%;
+  object-fit: cover;
+  padding-left: 60px;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #8C5E2A;
+  color: #fff;
+  padding: 0.10rem 1rem;
+  text-align: left;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* alinea el texto e íconos a la izquierda */
+}
+
+.footer p {
+  margin: 0.2rem 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* Línea de "síguenos + ícono" en horizontal */
+.siguenos-redes {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* espacio entre texto e icono */
+  margin-top: 0.5rem;
+}
+
+.instagram-icon {
+  height: 30px;
+}

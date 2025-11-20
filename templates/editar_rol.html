@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Rol</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/editar_rol.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Encabezado fijo -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+      <span>Panel Administradora</span>
+    </div>
+    <div class="links">
+      <a href="{{ url_for('admin.ver_usuarios') }}">Volver a Gestión de Usuarios</a>
+      <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="editar-contenido">
+    <h1>Editar rol de {{ usuario[1] }}</h1>
+    <form method="POST">
+      <p><strong>Correo:</strong> {{ usuario[2] }}</p>
+
+      <label for="rol">Rol:</label>
+      <select name="rol" id="rol">
+        <option value="usuario" {% if usuario[3] == 'usuario' %}selected{% endif %}>usuario</option>
+        <option value="admin" {% if usuario[3] == 'admin' %}selected{% endif %}>admin</option>
+      </select>
+
+      <div class="botones-formulario">
+        <button type="submit" class="boton">Guardar cambios</button>
+        <a href="{{ url_for('admin.ver_usuarios') }}" class="boton cancelar">Cancelar</a>
+      </div>
+    </form>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Panel Administradora. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+/* Base */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #ebd7af;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 0 2rem;
+  height: 60px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: #8C5E2A;
+}
+
+.logo img {
+  height: 60px;
+  margin-right: 15px;
+  margin-top: -10px;
+}
+
+.links a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: #8C5E2A;
+  font-weight: bold;
+}
+
+.links a:hover {
+  color: #db9646;
+}
+
+/* CONTENIDO */
+.contenido {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.formulario {
+  background-color: #fff;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #8C5E2A;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* BOTÓN */
+.boton {
+  margin-top: 1.5rem;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.boton:hover {
+  background-color: #db9646;
+}
+
+/* TABLA */
+.tabla-especies table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+table th, table td {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+table th {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.accion {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.accion:hover {
+  text-decoration: underline;
+}
+
+.eliminar {
+  color: #b30000;
+}
+
+.eliminar:hover {
+  color: #ff4d4d;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #8C5E2A;
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+}

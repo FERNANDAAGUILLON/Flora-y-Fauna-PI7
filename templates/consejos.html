@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consejos Ambientales</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/consejos.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Encabezado fijo -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+            <span>Fauna y Flora Local Qro</span>
+        </div>
+        <div class="links">
+            <a href="/mapa-usuario">Mapa</a>
+            <a href="/inicio_usuario">Volver</a>
+        </div>
+    </nav>
+
+    <!-- Fondo con consejos (sin imagen decorativa) -->
+    <div class="fondo">
+        <section class="contenido">
+            <h1>Consejos Ambientales</h1>
+            <div class="container">
+                {% for consejo in consejos %}
+                <div class="card">
+                    <img src="{{ url_for('static', filename=consejo.imagen) }}" alt="Imagen de {{ consejo.titulo }}">
+                    <div class="card-header">
+                        <h2>{{ consejo.titulo }}</h2>
+                        <span class="zona"><i class="fas fa-map-marker-alt"></i> {{ consejo.zona }}</span>
+                    </div>
+                    <div class="card-body">
+                        <p><i class="fas fa-info-circle"></i> {{ consejo.consejo }}</p>
+                        <p class="meta">
+                            <i class="fas fa-calendar-alt"></i> {{ consejo.fecha }} |
+                            <i class="fas fa-clock"></i> {{ consejo.hora }}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
+            <div class="siguenos-redes">
+                <p class="siguenos">Síguenos en nuestras redes sociales: </p>
+                <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
+                    <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

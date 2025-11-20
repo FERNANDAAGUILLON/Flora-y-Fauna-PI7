@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Usuarios</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/gestion_usuarios.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Encabezado fijo -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+      <span>Panel Administradora</span>
+    </div>
+    <div class="links">
+      <a href="{{ url_for('admin.panel_admin') }}">Volver al Panel</a>
+      <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <!-- Título principal -->
+  <main class="usuarios-contenido">
+    <h1>Gestión de Usuarios</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido Paterno</th>
+          <th>Apellido Materno</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+        <tr>
+          <td>{{ u[0] }}</td>
+          <td>{{ u[1] }}</td>
+          <td>{{ u[2] }}</td>
+          <td>{{ u[3] }}</td>
+          <td>{{ u[4] }}</td>
+          <td>{{ u[5] }}</td>
+          <td>
+            <a href="{{ url_for('admin.editar_rol', usuario_id=u[0]) }}" class="accion">Editar rol</a> |
+            <a href="{{ url_for('admin.eliminar_usuario', usuario_id=u[0]) }}" class="accion eliminar" onclick="return confirm('¿Estás segura de que quieres eliminar este usuario?');">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Panel Administradora. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

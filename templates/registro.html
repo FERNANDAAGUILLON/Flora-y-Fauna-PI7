@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registro de Usuario</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles3.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+</head>
+<body class="fondo">
+
+  <!-- Encabezado fijo -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+      <span>Fauna y Flora Local Qro</span>
+    </div>
+    <div class="links">
+      <a href="{{ url_for('auth.login') }}">Iniciar Sesión</a>
+      <a href="{{ url_for('auth.registro') }}">Registrarse</a>
+    </div>
+  </nav>
+
+  <!-- Fondo con patrón -->
+  <div class="overlay"></div>
+
+  <!-- Formulario de registro -->
+  <div class="form-container">
+    <h2 style="text-align:center; margin-bottom: 20px;">Registro de Usuario</h2>
+
+    {% with mensajes = get_flashed_messages() %}
+      {% if mensajes %}
+        <div class="mensaje-flash">
+          {% for mensaje in mensajes %}
+            <p>{{ mensaje }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+      <input name="nombre" placeholder="Nombre" pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ\s]+" minlength="2" maxlength="25" required />
+      <input name="ap_paterno" placeholder="Apellido paterno" pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ\s]+" minlength="2" maxlength="25" required />
+      <input name="ap_materno" placeholder="Apellido materno" pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ\s]+" minlength="2" maxlength="25" required />
+      <input type="email" name="correo" placeholder="Correo electrónico" pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" title="Introduce un correo electrónico válido con '@' y '.'" maxlength="25" required />
+      <input type="password" name="contraseña" id="contraseña" placeholder="Contraseña (mínimo 8 caracteres, 1 mayúscula y 1 número)" minlength="8" maxlength="25" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" required />
+      <label style="font-size: 0.85em;">
+        <input type="checkbox" onclick="togglePassword()"> Mostrar contraseña
+      </label>
+      <button type="submit">Registrarse</button>
+    </form>
+  </div>
+
+  <!-- Pie de página -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
+      <div class="siguenos-redes">
+        <p class="siguenos">Síguenos en nuestras redes sociales: </p>
+        <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
+          <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById("contraseña");
+      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>

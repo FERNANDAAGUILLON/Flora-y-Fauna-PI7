@@ -1,0 +1,158 @@
+/* Tipografía y estructura base */
+html, body {
+    height: 100%;
+    margin: 0;
+    background: #ebd7af;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    height: 60px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    color: #8C5E2A;
+}
+
+.logo img {
+    height: 60px;
+    margin-right: 15px;
+    margin-top: -10px;
+}
+
+.links a {
+    margin-left: 1.2rem;
+    text-decoration: none;
+    color: #8C5E2A;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.links a:hover {
+    color: #db9646;
+}
+
+/* PERFIL */
+.profile-container {
+    flex: 1; /* Empuja el footer hacia abajo */
+    max-width: 900px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ddd;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h2 {
+    margin: 0;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.profile-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.profile-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.edit-button {
+    background: #4CAF50;
+    color: white;
+}
+
+.cancel-button {
+    background: #ddd;
+    color: black;
+}
+
+.profile-form {
+    display: none;
+    margin-top: 20px;
+}
+
+.profile-form.active {
+    display: block;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #8C5E2A;
+    color: #fff;
+    padding: 0.10rem 1rem;
+    text-align: left;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer p {
+    margin: 0.2rem 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.siguenos-redes {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 0.5rem;
+}
+
+.instagram-icon {
+    height: 30px;
+}
