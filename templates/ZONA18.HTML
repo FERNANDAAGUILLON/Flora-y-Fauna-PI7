@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zona 18 - Fauna y Flora</title>
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -23,7 +22,7 @@
 
     /* 1. Encabezado Fijo */
     .navbar {
-      position: fixed; /* Header fijo */
+      position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
@@ -50,12 +49,13 @@
       margin-right: 15px;
       margin-top: -10px;
     }
-    
-    /* 2. Hero Section (Imagen de Fondo) */
+
+    /* 2. Hero Section */
     .hero-internal {
         height: 50vh;
-        /* AQUÍ VA LA IMAGEN DE FONDO DE LA ZONA */
-        background-image: url('{{ url_for('static', filename='img/hero-zona18.jpg') }}'); 
+        /* RUTA DE IMAGEN: Ajustar para Zona 15 */
+        background-image: url('{{ url_for('static', filename='img/hero-zona15.jpg') }}'); 
+        background-color: #4b7b38;
         background-size: cover;
         background-position: center;
         display: flex;
@@ -94,14 +94,14 @@
         object-fit: cover;
     }
     
-    /* Image Placeholder (Espacio en Gris por defecto) */
+    /* Placeholder para imagen si no hay URL */
     .image-placeholder {
         height: 200px; 
         display: flex; 
         align-items: center; 
         justify-content: center; 
         color: white;
-        background-color: #ccc; 
+        background-color: #ccc;
     }
 
     .card-body-custom {
@@ -163,10 +163,6 @@
       height: 30px;
     }
 
-    .siguenos {
-        margin-bottom: 0;
-    }
-
   </style>
 </head>
 <body>
@@ -178,16 +174,16 @@
     </div>
   </nav>
 
-  {% set zona_name = "Amealco de Bonfil" %}
   <section class="hero-internal">
       <div class="hero-content">
           <h1>
-              {{ zona_name }}<br>Fauna & Flora
+              Amealco de Bonfil<br>Fauna & Flora
           </h1>
       </div>
   </section>
 
   <div class="container py-5">
+      
     <h2 style="margin-bottom: 40px; font-size: 2.2em; font-family: 'Playfair Display', serif; color: #1c3728;">
         Especies Identificadas
     </h2>
