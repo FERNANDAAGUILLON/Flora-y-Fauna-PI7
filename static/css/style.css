@@ -1,113 +1,219 @@
-/* Fuente y fondo general */
+/* --- CONFIGURACIÓN GENERAL --- */
+html { height: 100%; }
+
 body {
-  height: 100%;
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #ebd7af;
-  background-image: url("/static/img/patron1.png");
-  background-repeat: repeat;
-  background-size: 100px 100px;
+  background-color: #f8f7f0;
   display: flex;
   flex-direction: column;
-}
-
-
-/* NAVBAR reducido */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  height: 60px; /* Altura reducida */
+  min-height: 100vh;
+  padding-top: 60px;
+  color: #333;
   position: relative;
+  overflow-x: hidden; /* Evita scroll lateral por las decoraciones */
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  font-size: 1.5rem;
-  font-family: 'Playfair Display', serif;
-  color: #8C5E2A;
-  line-height: 1;
+/* --- DECORACIÓN DE FONDO (Formas Orgánicas) --- */
+/* Esto quita lo "pelón" sin usar imágenes pesadas */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  z-index: -1; /* Detrás del contenido */
+  border-radius: 50%;
+  filter: blur(60px); /* Efecto difuminado suave */
+  opacity: 0.6;
 }
 
-.logo img {
-  height: 60px; /* Logo mantiene su tamaño original */
-  margin-right: 15px;
-  margin-top: -10px; /* Ajuste visual para centrar con menos altura de navbar */
+/* Mancha verde suave izquierda */
+body::before {
+  width: 400px;
+  height: 400px;
+  background-color: rgba(164, 180, 101, 0.3); /* Tu verde #A4B465 con transparencia */
+  top: 10%;
+  left: -100px;
+  animation: flotar 10s infinite ease-in-out;
 }
 
-.links a {
-  margin-left: 1.2rem;
-  text-decoration: none;
-  color: #8C5E2A;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: color 0.3s ease;
+/* Mancha café suave derecha */
+body::after {
+  width: 500px;
+  height: 500px;
+  background-color: rgba(140, 94, 42, 0.15); /* Tu café #8C5E2A con transparencia */
+  bottom: -50px;
+  right: -100px;
+  animation: flotar 15s infinite ease-in-out reverse;
 }
 
-.links a:hover {
-  color: #db9646;
+@keyframes flotar {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(20px, 40px); }
+  100% { transform: translate(0, 0); }
 }
 
-/* Título */
+/* --- 1. BARRA DE NAVEGACIÓN --- */
+.navbar {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem; background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: 60px; box-sizing: border-box;
+    }
+    .logo {
+      display: flex; align-items: center; font-weight: bold; font-size: 1.5rem;
+      font-family: 'Playfair Display', serif; color: #8C5E2A;
+    }
+    .logo img { height: 50px; margin-right: 15px; }
+    .links a { text-decoration: none; color: #333; font-weight: 500; margin-left: 20px; font-size: 0.95rem; transition: color 0.3s; }
+    .links a:hover { color: #8C5E2A; }
+/* --- 2. TÍTULO --- */
 .titulo {
-  font-size: 3rem;
-  color: #1c3728;
-  font-family: 'Playfair Display', serif;
-  text-align: center;
-  margin-top: 0rem;
+  font-size: 3rem; color: #1c3728; font-family: 'Playfair Display', serif;
+  text-align: center; margin-top: 3rem; margin-bottom: 1rem;
+  font-weight: 700; line-height: 1.2; flex-shrink: 0;
+  text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
 }
 
-/* Contenedor del mapa */
+/* --- 3. CONTENEDOR DEL MAPA --- */
 .container {
-  width: 90%;
-  padding: 2rem;
-  margin-left: 50px;
+  width: 90%; max-width: 1200px; margin: auto; padding: 1rem;
+  box-sizing: border-box; display: block; position: relative;
 }
 
-/* Estilos para el mapa SVG */
+.container svg {
+  width: 100%; height: auto; display: block;
+  /* Sombra elegante al mapa */
+  filter: drop-shadow(0 15px 25px rgba(28, 55, 40, 0.15));
+}
+
+/* --- 4. ESTILOS DE LOS MUNICIPIOS --- */
 .container path {
-  fill: #A4B465;
-  stroke: black;
-  stroke-width: 1px;
+  fill: #796f55; /* Color arena base */
+  stroke: #fff; stroke-width: 1px; transition: all 0.2s ease;
+  cursor: pointer;
 }
 
+/* Efecto Hover */
 .container path:hover {
-  fill: #4b7b38;
+  fill: #A4B465; /* Verde institucional */
+  stroke: #1c3728; stroke-width: 1.5px;
+  transform: translateY(-3px); /* Se levanta */
+  transform-box: fill-box; transform-origin: center;
+  filter: brightness(1.05);
 }
 
-/* Pie de página */
+/* --- 5. TOOLTIP (ESTILO CRISTAL) --- */
+#tooltip-municipio {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.85); /* Blanco translúcido */
+  backdrop-filter: blur(4px); /* Efecto borroso de fondo */
+  color: #1c3728; /* Texto verde oscuro */
+  padding: 8px 20px;
+  border-radius: 50px; /* Bordes redondos tipo cápsula */
+  font-size: 0.95rem;
+  font-weight: 700;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 2000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  transform: translate(-50%, -180%); /* Un poco más arriba */
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* En este estilo moderno quitamos el triangulo para que parezca flotar */
+#tooltip-municipio::after {
+  display: none; 
+}
+
+/* --- 6. PIE DE PÁGINA --- */
 .footer {
-  background-color: #8C5E2A;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  text-align: left;
-  margin-top: 2rem;
+      background-color: #8C5E2A;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      text-align: left;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer p {
+      margin: 0.2rem 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .siguenos-redes {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 0.5rem;
+    }
+
+    .instagram-icon {
+      height: 30px;
+    }
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .titulo { font-size: 2rem; margin-top: 2rem; }
+  .container { width: 95%; padding: 0.5rem; }
+  .logo { font-size: 1.1rem; }
+  .logo img { height: 35px; }
 }
 
-.footer-content {
-  display: flex;
-  flex-direction: column;
+
+/* ------------------------------------- */
+
+/* --- INSTRUCCIÓN (TEXTO LIMPIO) --- */
+.instruction-simple {
+  text-align: center;
+  margin-top: -0.5rem; /* Lo acerca un poco al título */
+  margin-bottom: 2rem; /* Espacio antes del mapa */
+  padding: 0 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.instruction-simple p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: #5a5a5a; /* Gris oscuro suave para lectura fácil */
+  margin: 0;
+  display: inline-flex;
   align-items: center;
+  gap: 10px; /* Espacio entre icono y texto */
 }
 
-.footer p {
-  margin: 0.2rem 0;
-  font-size: 0.85rem;
-  line-height: 1.4;
+/* Parte destacada del texto */
+.instruction-simple strong {
+  color: #8C5E2A; /* Tu color café institucional */
+  font-weight: 700;
+  border-bottom: 2px solid rgba(140, 94, 42, 0.2); /* Subrayado sutil decorativo */
 }
 
-.siguenos-redes {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin-top: 0.5rem;
+/* Icono animado sutilmente */
+.instruction-simple i {
+  color: #8C5E2A;
+  font-size: 1.2rem;
+  animation: point-move 1.5s infinite ease-in-out;
 }
 
-.instagram-icon {
-  height: 30px;
+@keyframes point-move {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px) translateY(-2px); } /* Pequeño movimiento diagonal */
+}
+
+/* Ajuste móvil */
+@media (max-width: 768px) {
+  .instruction-simple p {
+    font-size: 0.95rem;
+    flex-direction: column; /* En móvil pone el icono arriba del texto */
+    gap: 5px;
+  }
 }
