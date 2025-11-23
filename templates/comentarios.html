@@ -3,93 +3,299 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Comunidad Ambiental</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/comentarios.css') }}" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Comunidad Ambiental - Panel</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    html { width: 100%; overflow-x: hidden; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f7f0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding-top: 60px;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem; background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: 60px; box-sizing: border-box;
+    }
+    .logo {
+      display: flex; align-items: center; font-weight: bold; font-size: 1.5rem;
+      font-family: 'Playfair Display', serif; color: #8C5E2A;
+    }
+    .logo img { height: 50px; margin-right: 15px; }
+    .links a { text-decoration: none; color: #333; font-weight: 500; margin-left: 20px; font-size: 0.95rem; transition: color 0.3s; }
+    .links a:hover { color: #8C5E2A; }
+
+    .hero-compact {
+      background-image: url("{{ url_for('static', filename='img/comentarios.jpg') }}");
+      background-size: cover; background-position: center; position: relative;
+      height: 200px; color: white; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      flex-shrink: 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .hero-compact::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.5); z-index: 0;
+    }
+    .hero-content { position: relative; z-index: 1; padding: 0 20px; }
+    .hero-compact h1 { margin: 0; font-family: 'Playfair Display', serif; font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    .hero-compact p { margin: 10px 0 0; opacity: 0.95; font-weight: 400; font-size: 1.1rem; }
+
+    .dashboard-wrapper {
+        display: grid; grid-template-columns: 350px 1fr; gap: 40px;
+        max-width: 1200px; width: 100%; margin: 0 auto; padding: 40px 20px;
+        box-sizing: border-box; align-items: start;
+    }
+    .panel-formulario {
+        background: #ffffff; padding: 25px; border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); border: 1px solid #eee;
+        position: sticky; top: 90px; 
+    }
+    .panel-formulario h2 {
+        margin-top: 0; font-size: 2rem; color: #8C5E2A;
+        font-family: 'Playfair Display', serif; margin-bottom: 20px;
+        border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;
+    }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: #333; }
+    
+    textarea, select {
+        width: 100%; padding: 12px; border: 1px solid #d1d5db;
+        border-radius: 6px; font-family: 'Inter', sans-serif;
+        box-sizing: border-box; background-color: #fdfdfd; font-size: 0.95rem;
+    }
+    textarea { resize: vertical; min-height: 120px; max-width: 100%; }
+    textarea:focus, select:focus { outline: none; border-color: #8C5E2A; background-color: #fff; }
+    .input-error { border-color: #dc3545; background-color: #fff8f8; }
+
+    .btn-submit {
+        background-color: #8C5E2A; color: white; border: none; padding: 14px;
+        width: 100%; border-radius: 6px; font-weight: 600; cursor: pointer;
+        transition: background 0.3s; font-size: 1rem; margin-top: 10px;
+    }
+    .btn-submit:hover { background-color: #6f4a20; }
+
+    .panel-feed { display: flex; flex-direction: column; }
+    .feed-header {
+        margin-bottom: 20px; display: flex; justify-content: space-between;
+        align-items: center; flex-wrap: wrap; gap: 15px;
+    }
+    .feed-title h2 { margin: 0; font-size: 1.6rem; color: #333; font-family: 'Playfair Display', serif; }
+
+    .filter-buttons { display: flex; background: #e0e0e0; padding: 4px; border-radius: 6px; gap: 4px; }
+    .filter-btn {
+        background: transparent; border: none; padding: 6px 12px; border-radius: 4px;
+        font-size: 0.85rem; font-weight: 500; color: #555; cursor: pointer;
+    }
+    .filter-btn:hover { background: rgba(255,255,255,0.5); }
+    .filter-btn.active { background: white; color: #8C5E2A; font-weight: bold; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+
+    .comentarios-list {
+        display: flex; flex-direction: column; gap: 15px;
+        max-height: 70vh; overflow-y: auto; padding-right: 10px; padding-bottom: 10px;
+    }
+    .comentarios-list::-webkit-scrollbar { width: 8px; }
+    .comentarios-list::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+    .comentarios-list::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+    .comentarios-list::-webkit-scrollbar-thumb:hover { background: #8C5E2A; }
+
+    .comment-card {
+        background: white; border: 1px solid #eee; border-radius: 8px; padding: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: transform 0.2s;
+    }
+    .comment-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+    .comment-meta { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.85rem; color: #777; }
+    .user-badge { font-weight: 700; color: #333; display: flex; align-items: center; gap: 8px; font-size: 1rem; }
+    .zone-tag {
+        background-color: #e8f5e9; color: #2e7d32; padding: 2px 8px;
+        border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+    }
+    .comment-body { color: #444; line-height: 1.5; margin: 12px 0; font-size: 1rem;}
+    .comment-footer {
+        display: flex; justify-content: space-between; align-items: center;
+        border-top: 1px solid #f0f0f0; padding-top: 10px;
+    }
+    
+    .btn-like-ghost {
+        background: transparent; border: 1px solid #ddd; color: #666;
+        padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.85rem;
+        display: flex; align-items: center; gap: 5px; transition: all 0.2s;
+    }
+    .btn-like-ghost:hover { color: #dc3545; border-color: #dc3545; background: #fff5f5; }
+    .btn-like-ghost.liked { color: #dc3545; border-color: #dc3545; background: #fff5f5; }
+
+    .footer {
+      background-color: #8C5E2A;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      text-align: left;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer p {
+      margin: 0.2rem 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .siguenos-redes {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 0.5rem;
+    }
+
+    .instagram-icon {
+      height: 30px;
+    }
+
+
+    @media (max-width: 800px) {
+        .dashboard-wrapper { grid-template-columns: 1fr; gap: 30px; }
+        .panel-formulario { position: relative; top: 0; }
+        .comentarios-list { max-height: none; overflow-y: visible; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Encabezado fijo -->
+  <div id="flash-messages-container" style="display: none;">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if "Inicio de sesión exitoso" not in message %}
+                    <div data-category="{{ category }}" data-message="{{ message }}"></div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+  </div>
+
   <nav class="navbar">
     <div class="logo">
       <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
       <span>Fauna y Flora Local Qro</span>
     </div>
     <div class="links">
-      <a href="/mapa-usuario">Mapa</a>
-      <a href="/inicio_usuario">Volver</a>
+        <a href="/mapa-usuario">Mapa</a>
+        <a href="/inicio_usuario">Volver</a>
     </div>
   </nav>
 
-  <!-- Contenido principal -->
-  <main class="contenido-pagina">
-    <!-- Título y descripción sin tarjeta -->
-    <section class="intro">
-      <h1>Comunidad Ambiental</h1>
-      <p>Comparte tus experiencias y conoce las opiniones de otros amantes de la naturaleza en <strong>Querétaro</strong>.</p>
-    </section>
+  <header class="hero-compact">
+      <div class="hero-content">
+          <h1>Comunidad Ambiental</h1>
+          <p>Comparte tus avistamientos en las zonas de conservación.</p>
+      </div>
+  </header>
 
-    <!-- Comentarios -->
-    <section class="seccion comentarios">
-      <h2><i class="fas fa-comments"></i> Comentarios</h2>
-      {% for c in comentarios %}
-        <div class="comentario">
-          <div class="comentario-header">
-            <strong>{{ c.nombre }}</strong>
-            <span class="zona"><i class="fas fa-map-marker-alt"></i> {{ c.nombre_region }}</span>
-            <em><i class="fas fa-calendar-alt"></i> {{ c.Fecha_publicacion }}</em>
-          </div>
-          <p>{{ c.Contenido }}</p>
+  <div class="dashboard-wrapper">
+    
+    <aside class="panel-formulario">
+        <h2><i class="fas fa-plus-circle"></i> Nuevo Aporte</h2>
+        <form id="formPublicar" method="POST" class="formulario-comentario">
+            <div class="form-group">
+                <label>¿Qué descubriste hoy?</label>
+                <textarea id="inputContenido" name="contenido" placeholder="Comparte tu experiencia..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Ubicación</label>
+                <select id="inputZona" name="id_zona">
+                  <option value="" disabled selected>Seleccionar Zona...</option>
+                  {% for zona in zonas %}
+                    <option value="{{ zona.ID }}">{{ zona.nombre_region }}</option>
+                  {% endfor %}
+                </select>
+            </div>
 
-          {% if c.ID_usuario == id_usuario %}
-            <form action="/comentario/eliminar/{{ c.ID }}" method="POST" class="boton-form">
-              <button type="submit" class="boton-secundario">
-                <i class="fas fa-trash-alt"></i> Eliminar
-              </button>
-            </form>
+            <button type="submit" class="btn-submit">Publicar</button>
+        </form>
+    </aside>
 
-            <form action="/comentario/editar/{{ c.ID }}" method="POST" class="boton-form">
-              <input type="text" name="contenido" value="{{ c.Contenido }}" required>
-              <button type="submit" class="boton-secundario">
-                <i class="fas fa-edit"></i> Editar
-              </button>
-            </form>
-          {% endif %}
-
-          <button type="button" class="like-button boton-like" data-id="{{ c.ID }}" id="like-btn-{{ c.ID }}">
-            <i class="fas fa-heart"></i> Me gusta (<span id="likes-{{ c.ID }}">{{ c.likes }}</span>)
-          </button>
+    <section class="panel-feed">
+        <div class="feed-header">
+            <div class="feed-title">
+                <h2>Comentarios</h2>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filtrar('todos', this)">Todos</button>
+                <button class="filter-btn" onclick="filtrar('recientes', this)">Recientes</button>
+                <button class="filter-btn" onclick="filtrar('aleatorio', this)">Aleatorio</button>
+            </div>
         </div>
-      {% else %}
-        <p>No hay comentarios aún. ¡Sé el primero en comentar!</p>
-      {% endfor %}
+
+        <div class="comentarios-list" id="lista-comentarios">
+            {% for c in comentarios %}
+            <div class="comment-card" data-index="{{ loop.index }}" data-date="{{ c.Fecha_publicacion }}">
+                <div class="comment-meta">
+                    <div class="user-badge">
+                        <i class="fas fa-user-circle" style="color: #ccc; font-size: 1.2em;"></i> {{ c.nombre }}
+                    </div>
+                    <span>{{ c.Fecha_publicacion }}</span>
+                </div>
+                
+                <div><span class="zone-tag">{{ c.nombre_region }}</span></div>
+
+                <div class="comment-body" id="contenido-{{ c.ID }}">{{ c.Contenido }}</div>
+                <div id="raw-content-{{ c.ID }}" style="display:none;">{{ c.Contenido }}</div>
+
+                <div class="comment-footer">
+                    <button type="button" class="btn-like-ghost like-button" data-id="{{ c.ID }}">
+                        <i class="far fa-heart"></i> <span id="likes-{{ c.ID }}">{{ c.likes }}</span>
+                    </button>
+
+                    {% if c.ID_usuario == id_usuario %}
+                    <div class="action-links" style="font-size:0.85rem;">
+                        <button type="button" 
+                                class="btn-edit-action"
+                                data-id="{{ c.ID }}"
+                                style="background:none; border:none; color:#0d6efd; cursor:pointer;">
+                            Editar
+                        </button>
+                        
+                        <form action="/comentario/eliminar/{{ c.ID }}" method="POST" style="display:inline;" onsubmit="confirmarBorrado(event, this)">
+                             <button type="submit" style="background:none; border:none; color:#dc3545; cursor:pointer; margin-left:10px;">Eliminar</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+                <div style="text-align: center; padding: 40px; color: #999;">
+                    <i class="fas fa-leaf fa-3x"></i>
+                    <p>No hay comentarios aún.</p>
+                </div>
+            {% endfor %}
+        </div>
     </section>
 
-    <!-- Formulario -->
-    <section class="seccion formulario">
-      <h2><i class="fas fa-pen"></i> Agregar un comentario</h2>
-      <form method="POST" class="formulario-comentario">
-        <textarea name="contenido" rows="4" required placeholder="Escribe tu comentario..."></textarea>
-        <label for="id_zona"><i class="fas fa-map"></i> Selecciona una zona:</label>
-        <select name="id_zona" required>
-          {% for zona in zonas %}
-            <option value="{{ zona.ID }}">{{ zona.nombre_region }}</option>
-          {% endfor %}
-        </select>
-        <button type="submit" class="boton-principal">
-          <i class="fas fa-paper-plane"></i> Publicar
-        </button>
-      </form>
-    </section>
-  </main>
+  </div>
 
-  <!-- Pie de página -->
   <footer class="footer">
     <div class="footer-content">
-      <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
+      <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados.</p>
       <div class="siguenos-redes">
-        <p class="siguenos"><i class="fas fa-share-alt"></i> Síguenos en nuestras redes sociales:</p>
+        <p class="siguenos" style="margin:0;">Síguenos:</p>
         <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
           <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
         </a>
@@ -97,31 +303,198 @@
     </div>
   </footer>
 
-  <!-- Script para manejar los "me gusta" -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      
+      // 1. PROCESAR ALERTAS (Sin errores en editor)
+      // Leemos el div oculto que creamos arriba
+      const flashContainer = document.getElementById('flash-messages-container');
+      if (flashContainer) {
+          const messages = flashContainer.querySelectorAll('div');
+          messages.forEach(msg => {
+              const category = msg.dataset.category;
+              const text = msg.dataset.message;
+              
+              Swal.fire({
+                  title: category === 'success' ? '¡Éxito!' : 'Aviso',
+                  text: text,
+                  icon: category === 'success' ? 'success' : 'error',
+                  confirmButtonColor: '#8C5E2A',
+                  confirmButtonText: 'Aceptar',
+                  showClass: { popup: '', backdrop: '' },
+                  hideClass: { popup: '', backdrop: '' }
+              });
+          });
+      }
+
+      // 2. LIKES
       document.querySelectorAll('.like-button').forEach(button => {
         button.addEventListener('click', () => {
           const idComentario = button.dataset.id;
+          const span = document.getElementById('likes-' + idComentario);
+          const icon = button.querySelector('i');
+          if(!span) return;
+
+          const yaTieneLike = button.classList.contains('liked');
 
           fetch(`/comentario/like/${idComentario}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            }
+            method: 'POST', headers: { 'Content-Type': 'application/json' }
           })
           .then(res => res.json())
           .then(data => {
             if (data.success) {
-              const span = document.getElementById('likes-' + idComentario);
-              span.textContent = parseInt(span.textContent) + 1;
-              button.disabled = true;
-              button.innerHTML = `<i class="fas fa-heart"></i> Te gustó (${span.textContent})`;
+              let current = parseInt(span.textContent) || 0;
+              if (!yaTieneLike) {
+                button.classList.add('liked');
+                span.textContent = current + 1;
+                icon.classList.replace('far', 'fas'); 
+              } else {
+                button.classList.remove('liked');
+                span.textContent = Math.max(0, current - 1);
+                icon.classList.replace('fas', 'far');
+              }
             }
-          });
+          })
+          .catch(console.error);
         });
       });
+
+      // 3. EDITAR (Solución Definitiva)
+      document.querySelectorAll('.btn-edit-action').forEach(btn => {
+          btn.addEventListener('click', function() {
+              const id = this.dataset.id;
+              // Usar el texto puro del div oculto
+              const divOculto = document.getElementById('raw-content-' + id);
+              const textoActual = divOculto ? divOculto.innerText : '';
+              abrirModalEditar(id, textoActual);
+          });
+      });
+
+      // 4. VALIDACIÓN FORMULARIO
+      const formPublicar = document.getElementById('formPublicar');
+      if(formPublicar) {
+          formPublicar.addEventListener('submit', function(e) {
+              const contenido = document.getElementById('inputContenido');
+              const zona = document.getElementById('inputZona');
+              
+              contenido.classList.remove('input-error');
+              zona.classList.remove('input-error');
+
+              let errores = [];
+
+              if (!contenido.value.trim()) {
+                  errores.push("Falta tu experiencia.");
+                  contenido.classList.add('input-error');
+              }
+              if (!zona.value) {
+                  errores.push("Selecciona una zona.");
+                  zona.classList.add('input-error');
+              }
+
+              if (errores.length > 0) {
+                  e.preventDefault(); 
+                  Swal.fire({
+                      icon: 'warning',
+                      title: 'Faltan datos',
+                      html: errores.join('<br>'),
+                      confirmButtonColor: '#8C5E2A',
+                      showClass: { popup: '', backdrop: '' },
+                      hideClass: { popup: '', backdrop: '' }
+                  });
+              }
+          });
+      }
     });
+
+    // FUNCIONES GLOBALES
+
+    function confirmarBorrado(event, form) {
+        event.preventDefault(); 
+        Swal.fire({
+            title: '¿Eliminar aporte?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            showClass: { popup: '', backdrop: '' },
+            hideClass: { popup: '', backdrop: '' }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit(); 
+            }
+        });
+    }
+
+    async function abrirModalEditar(id, contenidoActual) {
+        const { value: nuevoContenido } = await Swal.fire({
+            title: 'Editar Comentario',
+            input: 'textarea',
+            inputLabel: 'Modifica tu experiencia',
+            inputValue: contenidoActual,
+            showCancelButton: true,
+            confirmButtonColor: '#0d6efd',
+            confirmButtonText: 'Guardar',
+            cancelButtonText: 'Cancelar',
+            showClass: { popup: '', backdrop: '' },
+            hideClass: { popup: '', backdrop: '' },
+            inputValidator: (value) => {
+                if (!value) return '¡No puedes dejar el comentario vacío!';
+            }
+        });
+
+        if (nuevoContenido) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/comentario/editar/${id}`;
+            
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'contenido';
+            input.value = nuevoContenido;
+            
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+
+    function filtrar(tipo, btn) {
+        const contenedor = document.getElementById('lista-comentarios');
+        const tarjetas = Array.from(contenedor.getElementsByClassName('comment-card'));
+        
+        const hoy = new Date();
+        const limiteTresSemanas = new Date(hoy.getTime() - (21 * 24 * 60 * 60 * 1000));
+
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (tipo === 'recientes') {
+            tarjetas.sort((a, b) => parseInt(a.dataset.index) - parseInt(b.dataset.index));
+            tarjetas.forEach(card => {
+                const fechaCard = new Date(card.dataset.date);
+                if (!isNaN(fechaCard) && fechaCard >= limiteTresSemanas) {
+                    card.style.display = 'block';
+                } else if (!isNaN(fechaCard)) {
+                    card.style.display = 'none';
+                } else {
+                    card.style.display = 'block'; 
+                }
+            });
+        } else {
+            tarjetas.forEach(card => card.style.display = 'block');
+            if (tipo === 'aleatorio') {
+                tarjetas.sort(() => Math.random() - 0.5);
+            } else if (tipo === 'todos') {
+                tarjetas.sort((a, b) => parseInt(a.dataset.index) - parseInt(b.dataset.index));
+            }
+        }
+
+        tarjetas.forEach(tarjeta => contenedor.appendChild(tarjeta));
+        contenedor.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   </script>
 
 </body>
