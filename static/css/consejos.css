@@ -1,192 +1,204 @@
-/* Fondo general */
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #ebd7af;
-    display: flex;
-    flex-direction: column;
-    color: #333;
+:root {
+    --verde-oliva: #4f665b;
+    --verde-suave: #8fa39a;
+    --cafe: #6b4a2b;
+    --cafe-claro: #9a7b60;
+    --crema: #f5f2ed;
+    --blanco: #ffffff;
+    --texto: #2e2a26;
+    --sombra: rgba(0,0,0,0.07);
 }
 
-/* NAVBAR */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+}
+
+/* ===== NAVBAR ===== */
 .navbar {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
+    border-radius: 35px;
+    padding: 14px 28px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    height: 90px;
+    box-shadow: 0 15px 35px var(--sombra);
+    z-index: 1000;
+    border: 1px solid #e0d8cd;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    font-weight: bold;
-    font-size: 1.5rem;
+    gap: 12px;
+}
+
+.logo span {
     font-family: 'Playfair Display', serif;
-    color: #8C5E2A;
+    font-size: 20px;
+    color: var(--cafe);
+    letter-spacing: 0.5px;
 }
 
 .logo img {
-    height: 60px;
-    margin-right: 15px;
-    margin-top: -10px;
+    height: 40px;
 }
 
+/* ===== BOTONES NAV ===== */
 .links a {
-    margin-left: 1.2rem;
     text-decoration: none;
-    color: #8C5E2A;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
+    margin-left: 10px;
+    padding: 8px 18px;
+    border-radius: 25px;
+    background: linear-gradient(to right, var(--verde-oliva), var(--verde-suave));
+    color: white;
+    font-size: 14px;
+    transition: 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.07);
 }
 
 .links a:hover {
-    color: #db9646;
+    transform: translateY(-2px);
+    background: linear-gradient(to right, var(--cafe), var(--cafe-claro));
 }
 
-/* Fondo sin imagen decorativa */
+/* ===== FONDO ===== */
 .fondo {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    padding: 2rem;
+    margin-top: 120px;
+    min-height: 100vh;
+    padding: 50px 20px;
+
+    background-image: 
+        linear-gradient(rgba(244,241,234,0.86), rgba(244,241,234,0.92)),
+        url("/static/img/fondo_bosque.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
-/* Contenido ocupa todo el ancho */
-.contenido {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
+/* ===== TITULO ===== */
 .contenido h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: #333;
     text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    color: var(--verde-oliva);
+    margin-bottom: 45px;
+    letter-spacing: 1px;
 }
 
-/* Tarjetas de consejos */
+/* ===== CONTENEDOR ===== */
 .container {
+    max-width: 1200px;
+    margin: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
 }
 
-/* Tarjeta */
+/* ===== TARJETAS ===== */
 .card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: var(--blanco);
+    border-radius: 22px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s ease;
-    height: 100%;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    border: 1px solid #e6ddd3;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .card:hover {
-    transform: scale(1.02);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
 
 .card img {
     width: 100%;
-    height: 160px;
+    height: 200px;
     object-fit: cover;
-    display: block;
 }
 
+/* ===== HEADER TARJETA ===== */
 .card-header {
-    background-color: #e0f7fa;
-    padding: 16px;
-    text-align: center;
+    background: linear-gradient(to right, #f2ece4, #f8f4ef);
+    padding: 16px 22px;
 }
 
 .card-header h2 {
-    margin: 0 0 8px 0;
-    font-weight: 600;
-    color: #00796b;
-    font-size: 1.2em;
+    margin: 0;
+    font-size: 18px;
+    color: var(--cafe);
+    font-family: 'Playfair Display', serif;
 }
 
-.card-header .zona {
-    display: inline-block;
-    background-color: #66bb6a;
-    padding: 4px 10px;
-    border-radius: 20px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 0.8em;
+.zona {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--verde-oliva);
 }
 
-.card-header .zona i {
-    margin-right: 4px;
-}
-
+/* ===== CUERPO TARJETA ===== */
 .card-body {
-    padding: 16px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 20px 22px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4a4a4a;
 }
 
-.card-body p {
-    margin-bottom: 12px;
-    line-height: 1.5;
-    font-size: 0.95em;
+.card-body i {
+    color: var(--verde-oliva);
 }
 
-.card-body p i {
-    margin-right: 6px;
-    color: #388e3c;
-}
-
-.card-body .meta {
-    font-size: 0.8em;
+.meta {
+    margin-top: 10px;
+    font-size: 13px;
     color: #777;
-    font-style: italic;
-    margin-top: auto;
 }
 
-.card-body .meta i {
-    margin-right: 4px;
-    color: #555;
-}
-
-/* FOOTER */
+/* ===== FOOTER ===== */
 .footer {
-    background-color: #8C5E2A;
-    color: #fff;
-    padding: 0.10rem 1rem;
-    text-align: left;
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-top: 70px;
+    background: linear-gradient(to right, #435f54, #2f453d);
+    color: white;
+    padding: 28px 20px;
+    text-align: center;
+    font-size: 14px;
 }
 
 .footer p {
-    margin: 0.2rem 0;
-    font-size: 0.85rem;
-    line-height: 1.4;
-}
-
-.siguenos-redes {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 0.5rem;
+    margin: 6px 0;
 }
 
 .instagram-icon {
-    height: 30px;
+    width: 28px;
+    margin-top: 8px;
+    filter: brightness(0) invert(1);
 }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .contenido h1 {
+        font-size: 30px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        border-radius: 25px;
+    }
+
+    .links a {
+        font-size: 13px;
+        padding: 6px 14px;
+    }
+}
+
+

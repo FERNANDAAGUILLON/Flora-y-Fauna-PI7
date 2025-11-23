@@ -1,121 +1,104 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inicio Usuario</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/inicio_usuario.css') }}" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio Usuario | Flora y Fauna</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inicio_usuario.css') }}" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-  <!-- Encabezado -->
-  <nav class="navbar">
-    <div class="logo">
-      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
-      <span>Fauna y Flora Local Qro</span>
-    </div>
-    <div class="links">
-      <a href="/comentarios">Comentarios</a>
-      <a href="/consejos">Consejos</a>
-      <a href="/perfil">Mi Perfil</a>
-      <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
-    </div>
-  </nav>
-
-  <!-- Estadísticas -->
-  <section class="estadisticas-section">
-    <h2 class="titulo-seccion">Estadísticas de Especies</h2>
-    <div class="estadisticas-container">
-      <div class="estadistica-card animada">
-        <i class="fas fa-leaf icono-estadistica"></i>
-        <h5>Flora</h5>
-        <p>{{ stats['flora'] }} especies registradas</p>
-      </div>
-      <div class="estadistica-card animada">
-        <i class="fas fa-dove icono-estadistica"></i>
-        <h5>Fauna</h5>
-        <p>{{ stats['fauna'] }} especies registradas</p>
-      </div>
-      <div class="estadistica-card animada">
-        <i class="fas fa-exclamation-triangle icono-estadistica"></i>
-        <h5>En peligro</h5>
-        <p>{{ stats['vulnerables'] }} especies vulnerables</p>
-      </div>
-      <div class="estadistica-card animada">
-        <i class="fas fa-camera icono-estadistica"></i>
-        <h5>Fotografiadas</h5>
-        <p>{{ fotos['fotografiadas'] }} especies con imágenes</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Carrusel de zonas -->
-  <section class="zonas-section">
-    <h2 class="titulo-seccion">Zonas Naturales</h2>
-    <div class="carrusel-container">
-      {% for zona in zonas %}
-        <div class="carrusel-item">
-          <img src="{{ url_for('static', filename=zona.ruta) }}" alt="{{ zona.nombre }}">
-          <h4>{{ zona.nombre }}</h4>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+            <span>Fauna y Flora Qro</span>
         </div>
-      {% endfor %}
-    </div>
-  </section>
+        <div class="links">
+            <a href="/comentarios">Comentarios</a>
+            <a href="/consejos">Consejos</a>
+            <a href="/perfil">Mi Perfil</a>
+            <a href="{{ url_for('auth.logout') }}" class="btn-logout">Cerrar sesión</a>
+        </div>
+    </nav>
 
-  <!-- Información -->
-  <section class="info-section">
-  <h2 class="titulo-seccion">Conoce la biodiversidad de Querétaro</h2>
-  <p>Querétaro representa aproximadamente el <strong>10 %</strong> de la biodiversidad nacional, albergando cerca de <strong>7,000 especies</strong> registradas entre plantas, hongos, invertebrados y vertebrados. Sin embargo, se estima que solo se conoce alrededor del <strong>25 %</strong> de su riqueza biológica total. La variabilidad genética presente en especies como los encinos refuerza su capacidad de adaptación frente al cambio climático y otras amenazas ambientales.</p>
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1 class="titulo-principal">Estadísticas de Especies</h1>
+            <p class="subtitulo">Resumen actual de la biodiversidad en nuestra plataforma</p>
+        </div>
 
-  <p>El estado cuenta con una notable diversidad de ecosistemas, que incluyen <strong>selvas bajas caducifolias</strong>, <strong>bosques templados de pino-encino</strong> en la Sierra Gorda, así como <strong>matorrales semidesérticos</strong> y pastizales en los Llanos Centrales. La <strong>Reserva de la Biosfera Sierra Gorda</strong> es un área protegida clave, donde habitan más de 5,000 especies, incluyendo numerosas especies amenazadas bajo la Norma Oficial Mexicana NOM-059.</p>
+        <div class="grid-stats">
+            <div class="stat-card">
+                <i class="fas fa-leaf icono-stat"></i>
+                <h2 class="numero-stat">{{ stats['flora'] }}</h2>
+                <p class="label-stat">Flora Registrada</p>
+            </div>
 
-  <p>A pesar de su gran riqueza natural, Querétaro enfrenta desafíos importantes como la pérdida de vegetación original, la expansión urbana descontrolada y la introducción de especies exóticas invasoras. No obstante, existen iniciativas de conservación impulsadas por la colaboración entre comunidades, instituciones académicas y autoridades, que buscan preservar este patrimonio natural mediante políticas públicas, educación ambiental y programas de manejo sustentable.</p>
+            <div class="stat-card">
+                <i class="fas fa-dove icono-stat"></i>
+                <h2 class="numero-stat">{{ stats['fauna'] }}</h2>
+                <p class="label-stat">Fauna Registrada</p>
+            </div>
 
-  <p>  <strong>Referencias:</strong> Pantoja Hernández, Y., Gómez Sánchez, M., Mahinda Martínez y Díaz de Salas, & Hernández Sandoval, L. (2017). Guía ilustrada de la flora del valle de Querétaro. Editorial Universitaria UAQ / CONABIO. Recuperado de https://biblioteca.semarnat.gob.mx/janium/Documentos/Ciga/libros2018/CD003341.pdf</p>
-  <!-- Botón "Leer más" -->
-  <div class="leer-mas-container">
-    <a href="https://biblioteca.semarnat.gob.mx/janium/Documentos/Ciga/libros2018/CD003341.pdf" target="_blank" class="boton-leer-mas">
-      Leer más
-    </a>
-  </div>
-</section>
-    <!-- Sección de exploración -->
-    <section class="explora-section">
-        <h2 class="titulo-seccion">Sigue explorando la flora y fauna</h2>
-        <p class="explora-text">Da clic en la imagen para ver las zonas naturales en el mapa.</p>
-        <a href="{{ url_for('mapa2') }}">
-            <img src="{{ url_for('static', filename='img/ubicacion.png') }}" alt="Ubicación" class="img-explora">
-        </a>
-    </section>
+            <div class="stat-card">
+                <i class="fas fa-exclamation-triangle icono-stat alerta"></i>
+                <h2 class="numero-stat">{{ stats['vulnerables'] }}</h2>
+                <p class="label-stat">En Peligro</p>
+            </div>
 
-  <!-- Pie de página -->
-  <footer class="footer">
-    <div class="footer-content">
-      <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
-      <div class="siguenos-redes">
-        <p class="siguenos">Síguenos en nuestras redes sociales: </p>
-        <a href="https://www.instagram.com/bio_qro25" target="_blank">
-          <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
-        </a>
-      </div>
-    </div>
-  </footer>
+            <div class="stat-card">
+                <i class="fas fa-camera icono-stat"></i>
+                <h2 class="numero-stat">{{ fotos['fotografiadas'] }}</h2>
+                <p class="label-stat">Con Fotografías</p>
+            </div>
+        </div>
 
-  <!-- Carrusel automático -->
-  <script>
-    const carrusel = document.querySelector('.carrusel-container');
-    let scrollAmount = 0;
+        <hr class="separador">
 
-    function autoScrollCarrusel() {
-      const maxScroll = carrusel.scrollWidth - carrusel.clientWidth;
-      scrollAmount += 300;
-      if (scrollAmount >= maxScroll) scrollAmount = 0;
-      carrusel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-    }
+        <h2 class="titulo-seccion">Explora Zonas Naturales</h2>
+        
+        <div class="grid-zonas">
+            {% if zonas %}
+                {% for zona in zonas %}
+                <div class="zona-card">
+                    <img src="{{ url_for('static', filename=zona.ruta) }}" alt="{{ zona.nombre }}">
+                    <div class="zona-info">
+                        <h4>{{ zona.nombre }}</h4>
+                        <span class="btn-ver-mas">Ver detalles &rarr;</span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-data">
+                    <p>No hay zonas registradas en este momento.</p>
+                </div>
+            {% endif %}
+        </div>
 
-    setInterval(autoScrollCarrusel, 3000);
-  </script>
+        <div class="info-box">
+            <h3 class="titulo-seccion">Sobre la Biodiversidad</h3>
+            <p>Querétaro representa una parte vital del ecosistema central de México. Conoce más sobre las especies endémicas y cómo ayudar a su conservación.</p>
+            
+            <div class="boton-wrapper">
+                <a href="https://biblioteca.semarnat.gob.mx" target="_blank" class="boton-principal">
+                    Leer Documentación Oficial
+                </a>
+            </div>
+        </div>
+
+    </div> <footer class="footer">
+        <p>&copy; 2025 Flora y Fauna de Querétaro.</p>
+        <div class="social-icons">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-facebook"></i>
+        </div>
+    </footer>
+
 </body>
 </html>
