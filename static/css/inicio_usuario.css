@@ -1,222 +1,299 @@
-/* Reset y base */
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #ebd7af;
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    /* Fondo de bosque fijo */
+    background-image: url('../img/fondo_bosque.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* NAVBAR */
+/* Capa oscura sobre la imagen de fondo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Oscurece al 50% */
+    z-index: -1;
+}
+
+/* =========================================
+   2. NAVBAR
+   ========================================= */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  height: 60px;
+    background: #fff;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  color: #8C5E2A;
+    display: flex;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #2F4F2F; /* Verde oscuro elegante */
+    font-size: 1.3rem;
 }
 
 .logo img {
-  height: 60px;
-  margin-right: 15px;
-  margin-top: -10px;
+    height: 40px;
+    margin-right: 10px;
 }
 
 .links a {
-  margin-left: 1rem;
-  text-decoration: none;
-  color: #8C5E2A;
-  font-weight: 600;
-  transition: color 0.3s ease;
+    text-decoration: none;
+    color: #555;
+    margin-left: 25px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s;
 }
 
 .links a:hover {
-  color: #4CAF50;
+    color: #8C5E2A; /* Color hover marrón */
 }
 
-/* Sección título */
-.titulo-seccion {
-  font-family: 'Playfair Display', serif;
-  color: #8C5E2A;
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 1.8rem;
+.btn-logout {
+    font-weight: 700;
+    color: #8C5E2A !important;
 }
 
-/* Estadísticas */
-.estadisticas-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 2rem;
+/* =========================================
+   3. TARJETA PRINCIPAL (FLOTANTE)
+   ========================================= */
+.main-container {
+    background: #fff;
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 
-.estadistica-card {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  text-align: center;
-  width: 220px;
-  transition: transform 0.3s ease;
+/* Tipografía Títulos */
+.titulo-principal, .titulo-seccion {
+    font-family: 'Playfair Display', serif;
+    color: #8C5E2A; /* Tu color marrón */
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-.estadistica-card:hover {
-  transform: scale(1.05);
+.subtitulo {
+    text-align: center;
+    color: #777;
+    margin-bottom: 40px;
+    font-size: 1rem;
 }
 
-.icono-estadistica {
-  font-size: 2.5rem;
-  color: #4CAF50;
-  margin-bottom: 0.5rem;
+.separador {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 50px 0;
 }
 
-/* Carrusel */
-.carrusel-container {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  gap: 1rem;
-  padding: 2rem;
+/* =========================================
+   4. GRID ESTADÍSTICAS
+   ========================================= */
+.grid-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
 }
 
-.carrusel-container::-webkit-scrollbar {
-  display: none;
+.stat-card {
+    background: #fafafa;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s, border-color 0.3s;
 }
 
-.carrusel-item {
-  flex: 0 0 auto;
-  width: 280px;
-  scroll-snap-align: center;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  overflow: hidden;
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: #8C5E2A;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-.carrusel-item img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+.icono-stat {
+    font-size: 2rem;
+    color: #2F4F2F;
+    margin-bottom: 15px;
 }
 
-.carrusel-item h4 {
-  color: #4CAF50;
-  text-align: center;
-  padding: 0.5rem;
-  font-size: 1.1rem;
+.icono-stat.alerta {
+    color: #D35400; /* Naranja quemado para alertas */
 }
 
-/* Info */
-.info-section {
-  max-width: 800px;
-  margin: 2rem auto;
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-  color: #444;
-  font-size: 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.numero-stat {
+    font-size: 2rem;
+    margin: 5px 0;
+    color: #333;
+    font-family: 'Playfair Display', serif;
 }
 
-/* Footer */
+.label-stat {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* =========================================
+   5. GRID ZONAS NATURALES
+   ========================================= */
+.grid-zonas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.zona-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+    border: 1px solid #eee;
+}
+
+.zona-card:hover {
+    transform: translateY(-5px);
+}
+
+.zona-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.zona-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.zona-info h4 {
+    margin: 0 0 15px 0;
+    color: #2F4F2F;
+    font-size: 1.2rem;
+}
+
+.btn-ver-mas {
+    color: #8C5E2A;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.btn-ver-mas:hover {
+    color: #5e3f1c;
+}
+
+/* =========================================
+   6. SECCIÓN INFORMATIVA & BOTÓN
+   ========================================= */
+.info-box {
+    background: #FAF8F0; /* Beige muy suave */
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    border-left: 4px solid #8C5E2A;
+}
+
+.info-box p {
+    max-width: 700px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.boton-wrapper {
+    margin-top: 20px;
+}
+
+.boton-principal {
+    background-color: #8C5E2A; /* Tu color marrón */
+    color: white;
+    padding: 14px 35px;
+    border-radius: 50px; /* Píldora redondeada */
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(140, 94, 42, 0.3);
+}
+
+.boton-principal:hover {
+    background-color: #6e4820;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(140, 94, 42, 0.4);
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
 .footer {
-  background-color: #8C5E2A;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  text-align: center;
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    padding: 30px;
+    margin-top: auto;
 }
 
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.social-icons {
+    margin-top: 10px;
+    font-size: 1.2rem;
 }
 
-.footer p {
-  margin: 0.2rem 0;
-  font-size: 0.85rem;
+.social-icons i {
+    margin: 0 10px;
+    cursor: pointer;
+    transition: opacity 0.3s;
 }
 
-.siguenos-redes {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
+.social-icons i:hover {
+    opacity: 0.7;
 }
 
-.instagram-icon {
-  height: 28px;
-}
-
-/* Titular estilo como Estadísticas */
-.titulo-seccion {
-  font-family: 'Playfair Display', serif;
-  color: #8C5E2A;
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 1.8rem;
-}
-
-/* Info section adicional */
-.info-section p {
-  max-width: 800px;
-  margin: 1rem auto;
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  color: #444;
-  font-size: 1rem;
-  line-height: 1.6;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  text-align: justify;
-}
-
-/* Sección de exploración */
-.explora-section {
-  text-align: center;
-  margin: 3rem auto;
-  padding: 1rem 2rem;
-}
-
-.explora-text {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  color: #444;
-}
-
-.img-explora {
-  max-width: 90%;
-  height: 200px;
-}
-
-.leer-mas-container {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.boton-leer-mas {
-  background-color: #4CAF50;
-  color: #fff;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  display: inline-block;
-}
-
-.boton-leer-mas:hover {
-  background-color: #388e3c;
+/* Responsividad Móvil */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 15px;
+    }
+    .links {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    .links a { margin-left: 0; }
+    
+    .main-container {
+        padding: 25px;
+        width: 95%;
+    }
+    
+    .numero-stat { font-size: 1.5rem; }
 }
