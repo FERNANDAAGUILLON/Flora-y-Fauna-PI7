@@ -4,51 +4,615 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flora y Fauna de Querétaro</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style4.css') }}" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --verde-oscuro: #1e3f20;
+      --verde-medio: #2d5a2f;
+      --verde-claro: #4a7c59;
+      --beige: #f5f1e6;
+      --ocre: #d4a574;
+      --texto-oscuro: #2c2416;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--texto-oscuro);
+      line-height: 1.6;
+      background-color: var(--beige);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Encabezado */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-claro));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+    }
+    
+    .logo span {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--verde-oscuro);
+    }
+    
+    .links a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: var(--verde-oscuro);
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+    
+    .links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--verde-claro);
+      transition: width 0.3s;
+    }
+    
+    .links a:hover {
+      color: var(--verde-claro);
+    }
+    
+    .links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Sección principal con efecto parallax */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      z-index: -1;
+    }
+    
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(30, 63, 32, 0.8) 0%, rgba(30, 63, 32, 0.5) 100%);
+    }
+    
+    .hero-content {
+      max-width: 600px;
+      margin-left: 10%;
+      color: white;
+      z-index: 1;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .hero h1 span {
+      color: var(--ocre);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 500px;
+    }
+    
+    .boton-explorar {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--ocre);
+      color: var(--texto-oscuro);
+      padding: 14px 35px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .boton-explorar:hover {
+      background-color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    
+    /* Secciones de contenido */
+    .section {
+      padding: 100px 40px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      color: var(--verde-oscuro);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--ocre);
+    }
+    
+    .section-title p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* Tarjetas con efecto 3D */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: transform 0.4s, box-shadow 0.4s;
+      position: relative;
+    }
+    
+    .card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .card-image {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .card-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    }
+    
+    .card-content {
+      padding: 30px;
+    }
+    
+    .card h3 {
+      color: var(--verde-oscuro);
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+    
+    .card p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .card a {
+      color: var(--verde-claro);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.3s;
+    }
+    
+    .card a::after {
+      content: "→";
+      margin-left: 8px;
+      transition: transform 0.3s;
+    }
+    
+    .card a:hover {
+      color: var(--verde-oscuro);
+    }
+    
+    .card a:hover::after {
+      transform: translateX(5px);
+    }
+    
+    /* Galería de imágenes */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 50px;
+    }
+    
+    .gallery-item {
+      height: 200px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
+    
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Sección Toma Acción */
+    .action-section {
+      background: linear-gradient(135deg, var(--verde-oscuro) 0%, var(--verde-medio) 100%);
+      color: white;
+      text-align: center;
+    }
+    
+    .action-section .section-title h2 {
+      color: white;
+    }
+    
+    .action-section .section-title p {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--ocre);
+      color: var(--texto-oscuro);
+      padding: 14px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .action-btn:hover {
+      background-color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    
+    /* Pie de página */
+    .footer {
+      background-color: var(--verde-oscuro);
+      color: white;
+      padding: 60px 0 30px;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    
+    .footer p {
+      margin-bottom: 0;
+    }
+    
+    .siguenos-redes {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .siguenos {
+      margin-bottom: 0;
+    }
+    
+    .instagram-icon {
+      width: 30px;
+      height: 30px;
+      transition: transform 0.3s;
+      filter: invert(1);
+    }
+    
+    .instagram-icon:hover {
+      transform: scale(1.2);
+    }
+    
+    /* Animaciones */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        height: 70vh;
+        text-align: center;
+      }
+      
+      .hero-content {
+        margin-left: 0;
+        padding: 0 20px;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .navbar {
+        padding: 15px 20px;
+      }
+      
+      .section {
+        padding: 60px 20px;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .cards-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
   <!-- Encabezado fijo -->
   <nav class="navbar">
     <div class="logo">
-      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logotipo">
+      <div class="logo-img">FFQ</div>
       <span>Fauna y Flora Local Qro</span>
     </div>
     <div class="links">
-      <a href="{{ url_for('auth.login') }}">Iniciar Sesión</a>
-      <a href="{{ url_for('auth.registro') }}">Registrarse</a>
+      <a href="#">Iniciar Sesión</a>
+      <a href="#">Registrarse</a>
     </div>
   </nav>
 
-  <!-- Fondo con imagen y contenido -->
-  <div class="fondo">
-    <section class="contenido">
+  <!-- Sección principal con efecto parallax -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content fade-in">
       <h1><span>Descubre</span> la naturaleza de Querétaro</h1>
       <p>
-        Explora la diversidad de flora y fauna que habita en nuestras sierras, selvas bajas y zonas semidesérticas.
+        Explora la diversidad de flora y fauna que habita en nuestras sierras, selvas bajas y zonas semidesérticas. Un viaje por la majestuosa Sierra Gorda queretana.
       </p>
-      <a href="{{ url_for('mapa') }}" class="boton-explorar">Explora ahora →</a>
-    </section>
-    
-    <div class="imagen-derecha">
-      <img src="{{ url_for('static', filename='img/inicio.png') }}" alt="Paisaje Rural">
+      <a href="#" class="boton-explorar">Explora ahora →</a>
     </div>
-  </div>
+  </section>
+
+  <!-- Sección Nuestras Metas -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Nuestras Metas</h2>
+        <p>Conoce los objetivos que nos impulsan a proteger y promover la biodiversidad de Querétaro</p>
+      </div>
+      
+      <div class="cards-container">
+        <div class="card fade-in">
+          <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80')"></div>
+          <div class="card-content">
+            <h3>Preservación de Ecosistemas</h3>
+            <p>Proteger los hábitats naturales y las especies endémicas de Querétaro mediante programas de conservación activa en la Sierra Gorda.</p>
+            <a href="#">Conoce más</a>
+          </div>
+        </div>
+        
+        <div class="card fade-in">
+          <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80')"></div>
+          <div class="card-content">
+            <h3>Educación Ambiental</h3>
+            <p>Fomentar la conciencia ecológica en la comunidad a través de programas educativos y actividades de divulgación en la naturaleza.</p>
+            <a href="#">Conoce más</a>
+          </div>
+        </div>
+        
+        <div class="card fade-in">
+          <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')"></div>
+          <div class="card-content">
+            <h3>Investigación Científica</h3>
+            <p>Apoyar estudios científicos que contribuyan al conocimiento y protección de nuestra biodiversidad local en la Sierra Gorda.</p>
+            <a href="#">Conoce más</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Toma Acción -->
+  <section class="section action-section">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Toma Acción</h2>
+        <p>Únete a nuestras iniciativas y contribuye a la protección de la biodiversidad queretana</p>
+      </div>
+      
+      <div class="action-buttons">
+        <a href="#" class="action-btn">Voluntariado</a>
+        <a href="#" class="action-btn">Donaciones</a>
+        <a href="#" class="action-btn">Difusión</a>
+        <a href="#" class="action-btn">Eventos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galería de la Sierra Gorda -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>La Sierra Gorda Queretana</h2>
+        <p>Un vistazo a los paisajes y biodiversidad de esta reserva de la biosfera</p>
+      </div>
+      
+      <div class="gallery">
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Paisaje Sierra Gorda" class="gallery-img">
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2041&q=80" alt="Flora Sierra Gorda" class="gallery-img">
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Cascada Sierra Gorda" class="gallery-img">
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1470115636492-6d2b56f9146d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Fauna Sierra Gorda" class="gallery-img">
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Pie de página -->
   <footer class="footer">
-  <div class="footer-content">
-    <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
-    
-    <div class="siguenos-redes">
-      <p class="siguenos">Síguenos en nuestras redes sociales: </p>
-      <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
-        <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" class="instagram-icon">
-      </a>
+    <div class="footer-content">
+      <p>&copy; 2025 Flora y Fauna de Querétaro. Todos los derechos reservados. Sitio informativo sin fines de lucro.</p>
+      
+      <div class="siguenos-redes">
+        <p class="siguenos">Síguenos en nuestras redes sociales: </p>
+        <a href="https://www.instagram.com/bio_qro25?igsh=MTdoN2FlZTd1ZnE5bw==" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" class="instagram-icon">
+        </a>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
+
+  <script>
+    // Animación de aparición al hacer scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const fadeElements = document.querySelectorAll('.fade-in');
+      
+      const fadeInOnScroll = function() {
+        fadeElements.forEach(element => {
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150;
+          
+          if (elementTop < window.innerHeight - elementVisible) {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
+          }
+        });
+      };
+      
+      // Establecer estado inicial
+      fadeElements.forEach(element => {
+        element.style.opacity = "0";
+        element.style.transform = "translateY(30px)";
+        element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+      });
+      
+      window.addEventListener('scroll', fadeInOnScroll);
+      fadeInOnScroll(); // Ejecutar una vez al cargar la página
+    });
+  </script>
 
 </body>
 </html>
