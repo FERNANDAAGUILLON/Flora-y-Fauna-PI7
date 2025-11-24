@@ -1,31 +1,36 @@
-
-
 body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    /* Fondo de bosque fijo */
-    background-image: url('../img/fondo_bosque.jpg'); 
+    color: #333;
+
+    /* ===== FONDO ESTILO SOLICITADO ===== */
+    background-image: 
+        linear-gradient(rgba(244,241,234,0.86), rgba(244,241,234,0.92)),
+        url("/static/img/fondo_bosque.jpg");
+
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    color: #333;
+
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Capa oscura sobre la imagen de fondo */
+
+/* Oscurecedor elegante */
 body::before {
     content: '';
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Oscurece al 50% */
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(1px);
     z-index: -1;
 }
 
 /* =========================================
-   2. NAVBAR
+   NAVBAR (SE MANTIENE IGUAL)
    ========================================= */
 .navbar {
     background: #fff;
@@ -33,267 +38,222 @@ body::before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
 }
 
+/* Logo con forma redonda */
+.logo img {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+/* Texto del logo (color café solicitado) */
 .logo {
     display: flex;
     align-items: center;
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    color: #2F4F2F; /* Verde oscuro elegante */
-    font-size: 1.3rem;
+    color: #8C5E2A; /* Café específico */
+    font-size: 1.4rem;
 }
 
-.logo img {
-    height: 40px;
-    margin-right: 10px;
-}
-
+/* Links */
 .links a {
     text-decoration: none;
-    color: #555;
+    color: #444;
     margin-left: 25px;
     font-weight: 500;
-    font-size: 0.95rem;
-    transition: color 0.3s;
+    font-size: 0.98rem;
+    transition: color 0.3s ease;
 }
 
 .links a:hover {
-    color: #8C5E2A; /* Color hover marrón */
-}
-
-.btn-logout {
-    font-weight: 700;
-    color: #8C5E2A !important;
+    color: #8C5E2A;
 }
 
 /* =========================================
-   3. TARJETA PRINCIPAL (FLOTANTE)
+   TARJETA PRINCIPAL
    ========================================= */
 .main-container {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.98);
     width: 90%;
     max-width: 1100px;
-    margin: 40px auto;
+    margin: 50px auto;
     padding: 50px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    border-radius: 22px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.7s ease forwards;
 }
 
-/* Tipografía Títulos */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Títulos */
 .titulo-principal, .titulo-seccion {
     font-family: 'Playfair Display', serif;
-    color: #8C5E2A; /* Tu color marrón */
+    color: #8C5E2A;
     text-align: center;
     margin-bottom: 10px;
 }
 
 .subtitulo {
     text-align: center;
-    color: #777;
-    margin-bottom: 40px;
-    font-size: 1rem;
-}
-
-.separador {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 50px 0;
+    color: #666;
+    margin-bottom: 35px;
 }
 
 /* =========================================
-   4. GRID ESTADÍSTICAS
+   GRID ESTADÍSTICAS (MODERNO)
    ========================================= */
 .grid-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
+    gap: 28px;
 }
 
 .stat-card {
-    background: #fafafa;
-    padding: 25px;
-    border-radius: 15px;
+    background: #fbfbfb;
+    padding: 28px;
+    border-radius: 18px;
+    border: 1px solid #eee;
     text-align: center;
-    border: 1px solid #f0f0f0;
-    transition: transform 0.3s, border-color 0.3s;
+    transition: 0.35s ease;
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-7px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     border-color: #8C5E2A;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .icono-stat {
-    font-size: 2rem;
+    font-size: 2.2rem;
+    margin-bottom: 12px;
     color: #2F4F2F;
-    margin-bottom: 15px;
-}
-
-.icono-stat.alerta {
-    color: #D35400; /* Naranja quemado para alertas */
 }
 
 .numero-stat {
-    font-size: 2rem;
-    margin: 5px 0;
-    color: #333;
+    font-size: 2.2rem;
     font-family: 'Playfair Display', serif;
+    color: #333;
 }
 
 .label-stat {
-    font-size: 0.85rem;
-    color: #888;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0;
+    letter-spacing: 1.3px;
+    color: #777;
 }
 
 /* =========================================
-   5. GRID ZONAS NATURALES
+   GRID ZONAS NATURALES
    ========================================= */
 .grid-zonas {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 32px;
 }
 
 .zona-card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: transform 0.3s;
     border: 1px solid #eee;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.08);
+    transition: transform 0.35s ease, box-shadow 0.3s ease;
 }
 
 .zona-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-7px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
 
 .zona-card img {
     width: 100%;
-    height: 180px;
+    height: 185px;
     object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.zona-card:hover img {
+    transform: scale(1.06);
 }
 
 .zona-info {
-    padding: 20px;
+    padding: 22px;
     text-align: center;
 }
 
 .zona-info h4 {
-    margin: 0 0 15px 0;
+    margin-bottom: 14px;
+    font-size: 1.25rem;
     color: #2F4F2F;
-    font-size: 1.2rem;
-}
-
-.btn-ver-mas {
-    color: #8C5E2A;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.btn-ver-mas:hover {
-    color: #5e3f1c;
 }
 
 /* =========================================
-   6. SECCIÓN INFORMATIVA & BOTÓN
+   BOTÓN PRINCIPAL
    ========================================= */
-.info-box {
-    background: #FAF8F0; /* Beige muy suave */
-    padding: 40px;
-    border-radius: 15px;
-    text-align: center;
-    border-left: 4px solid #8C5E2A;
-}
-
-.info-box p {
-    max-width: 700px;
-    margin: 0 auto 30px;
-    line-height: 1.6;
-    color: #555;
-}
-
-.boton-wrapper {
-    margin-top: 20px;
-}
-
 .boton-principal {
-    background-color: #8C5E2A; /* Tu color marrón */
-    color: white;
-    padding: 14px 35px;
-    border-radius: 50px; /* Píldora redondeada */
-    text-decoration: none;
+    background: #8C5E2A;
+    color: #fff;
+    padding: 14px 36px;
+    border-radius: 50px;
     font-weight: 600;
-    text-transform: uppercase;
+    text-decoration: none;
     letter-spacing: 1px;
-    font-size: 0.85rem;
-    display: inline-block;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(140, 94, 42, 0.3);
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(140, 94, 42, 0.35);
 }
 
 .boton-principal:hover {
-    background-color: #6e4820;
+    background: #72461f;
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(140, 94, 42, 0.4);
+    box-shadow: 0 6px 18px rgba(140, 94, 42, 0.45);
 }
 
 /* =========================================
-   7. FOOTER
+   FOOTER
    ========================================= */
 .footer {
     text-align: center;
-    color: rgba(255,255,255,0.8);
-    padding: 30px;
-    margin-top: auto;
-}
-
-.social-icons {
-    margin-top: 10px;
-    font-size: 1.2rem;
+    color: rgba(255,255,255,0.85);
+    padding: 35px 10px;
 }
 
 .social-icons i {
-    margin: 0 10px;
-    cursor: pointer;
+    margin: 0 12px;
+    font-size: 1.3rem;
     transition: opacity 0.3s;
 }
 
 .social-icons i:hover {
-    opacity: 0.7;
+    opacity: 0.75;
 }
 
-/* Responsividad Móvil */
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
-        padding: 15px;
+        gap: 10px;
     }
-    .links {
-        margin-top: 15px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-    .links a { margin-left: 0; }
-    
+
     .main-container {
-        padding: 25px;
-        width: 95%;
+        padding: 30px;
+        width: 94%;
     }
-    
-    .numero-stat { font-size: 1.5rem; }
+
+    .zona-card img {
+        height: 150px;
+    }
 }

@@ -16,48 +16,59 @@ body {
     color: var(--texto);
 }
 
-/* ===== NAVBAR ===== */
+/* ===== NAVBAR SIMILAR A LA IMAGEN ===== */
 .navbar {
     position: fixed;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 92%;
-    background: rgba(255, 255, 255, 0.82);
-    backdrop-filter: blur(12px);
-    border-radius: 35px;
-    padding: 14px 28px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 25px;
+
+    background: linear-gradient(to bottom, #ffffff, #f7f4ef);
+    border-bottom: 2px solid #e5ddd2;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 15px 35px var(--sombra);
+    gap: 15px;
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     z-index: 1000;
-    border: 1px solid #e0d8cd;
+}
+
+/* Logo redondo */
+.logo img {
+    height: 45px;
+    width: auto;
+    display: block;
+}
+
+/* Texto del nombre */
+.logo span {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #6b4a2b;
+    letter-spacing: 0.3px;
+    margin-left: 8px;
 }
 
 .logo {
     display: flex;
     align-items: center;
+}
+
+/* ===== BOTONES (Mapa / Volver) ===== */
+.links {
+    margin-left: auto;
+    display: flex;
     gap: 12px;
 }
 
-.logo span {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    color: var(--cafe);
-    letter-spacing: 0.5px;
-}
-
-.logo img {
-    height: 40px;
-}
-
-/* ===== BOTONES NAV ===== */
 .links a {
     text-decoration: none;
-    margin-left: 10px;
     padding: 8px 18px;
     border-radius: 25px;
+
     background: linear-gradient(to right, var(--verde-oliva), var(--verde-suave));
     color: white;
     font-size: 14px;
@@ -71,19 +82,24 @@ body {
 }
 
 /* ===== FONDO ===== */
+/* =========================================
+   FONDO (ESTILO SOLICITADO)
+   ========================================= */
 .fondo {
     margin-top: 120px;
     min-height: 100vh;
     padding: 50px 20px;
 
-    background-image: 
-        linear-gradient(rgba(244,241,234,0.86), rgba(244,241,234,0.92)),
+    background-image:
+        linear-gradient(rgba(244, 241, 234, 0.86), rgba(244, 241, 234, 0.92)),
         url("/static/img/fondo_bosque.jpg");
 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
 }
+
+
 
 /* ===== TITULO ===== */
 .contenido h1 {
@@ -119,10 +135,16 @@ body {
     box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
 
+/* ===== EFECTO ZOOM DE IMAGEN ===== */
 .card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card:hover img {
+    transform: scale(1.07);
 }
 
 /* ===== HEADER TARJETA ===== */
@@ -185,6 +207,7 @@ body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+
     .contenido h1 {
         font-size: 30px;
     }
@@ -192,7 +215,6 @@ body {
     .navbar {
         flex-direction: column;
         gap: 10px;
-        border-radius: 25px;
     }
 
     .links a {
@@ -200,5 +222,6 @@ body {
         padding: 6px 14px;
     }
 }
+
 
 
